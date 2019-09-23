@@ -22,6 +22,6 @@ commonLabels:
   app.kubernetes.io/instance: prometheus-operator
   app.kubernetes.io/version: v0.31.1
   app.kubernetes.io/component: monitoring
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
   env: staging

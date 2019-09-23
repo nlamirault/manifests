@@ -15,7 +15,7 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 commonLabels:
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
   app.kubernetes.io/manufacturer: jarvis
 resources:

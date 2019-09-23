@@ -21,7 +21,7 @@ commonLabels:
   app.kubernetes.io/instance: default-backend
   app.kubernetes.io/component: ingress-controllers
   app.kubernetes.io/version: v1.4
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
   env: staging
 images:

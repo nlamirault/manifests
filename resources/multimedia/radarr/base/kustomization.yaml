@@ -18,7 +18,7 @@ commonLabels:
   app.kubernetes.io/instance: radarr
   app.kubernetes.io/version: "v1"
   app.kubernetes.io/component: multimedia
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
 namespace: monitoring
 resources:

@@ -22,7 +22,7 @@ namespace: monitoring
 #   app.kubernetes.io/instance: kube-state-metrics
 #   app.kubernetes.io/version: v1.6.0
 #   app.kubernetes.io/component: monitoring
-#   app.kubernetes.io/part-of: jarvis
+#   app.kubernetes.io/part-of: kubernetes
 #   app.kubernetes.io/managed-by: kustomize
 #   env: staging
 images:

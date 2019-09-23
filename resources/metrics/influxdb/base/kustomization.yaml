@@ -18,7 +18,7 @@ commonLabels:
   app.kubernetes.io/instance: influxdb
   app.kubernetes.io/version: "v1"
   app.kubernetes.io/component: database
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
 namespace: metrics
 resources:

@@ -22,7 +22,7 @@ commonLabels:
   app.kubernetes.io/instance: elasticsearch
   app.kubernetes.io/version: v7.2.0
   app.kubernetes.io/component: logging
-  app.kubernetes.io/part-of: skale-5-kubernetes
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
   env: staging
 patchesJson6902:

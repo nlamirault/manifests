@@ -10,7 +10,7 @@ namespace: monitoring
 #   app.kubernetes.io/instance: kube-monitor-minotor
 #   app.kubernetes.io/version: v6.2.5
 #   app.kubernetes.io/component: monitoring
-#   app.kubernetes.io/part-of: jarvis
+#   app.kubernetes.io/part-of: kubernetes
 #   app.kubernetes.io/managed-by: kustomize
 #   env: staging
 resources:
@@ -39,6 +39,6 @@ generatorOptions:
 #     app.kubernetes.io/instance: grafana-minotor
 #     app.kubernetes.io/component: dashboard
 #     app.kubernetes.io/version: v6.2.5
-#     app.kubernetes.io/part-of: jarvis
+#     app.kubernetes.io/part-of: kubernetes
 #     app.kubernetes.io/managed-by: kustomize
 #     app.kubernetes.io/manufacturer: jarvis

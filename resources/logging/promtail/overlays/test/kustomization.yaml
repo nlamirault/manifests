@@ -22,7 +22,7 @@ commonLabels:
   app.kubernetes.io/instance: promtail-minotor
   app.kubernetes.io/version: v0.3.0
   app.kubernetes.io/component: logging
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
   env: staging
 images:

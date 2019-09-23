@@ -23,6 +23,6 @@ namespace: monitoring
 #   app.kubernetes.io/instance: prometheus-operated
 #   app.kubernetes.io/version: v2.12.0
 #   app.kubernetes.io/component: monitoring
-#   app.kubernetes.io/part-of: jarvis
+#   app.kubernetes.io/part-of: kubernetes
 #   app.kubernetes.io/managed-by: kustomize
 #   env: staging

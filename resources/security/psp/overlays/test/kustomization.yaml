@@ -21,6 +21,6 @@ commonLabels:
   app.kubernetes.io/instance: pod-security-policy
   app.kubernetes.io/version: v1
   app.kubernetes.io/component: policy
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
   env: staging

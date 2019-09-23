@@ -10,7 +10,7 @@ namespace: monitoring
 #   app.kubernetes.io/instance: alertmanager-operated
 #   app.kubernetes.io/version: v0.16.0
 #   app.kubernetes.io/component: monitoring
-#   app.kubernetes.io/part-of: jarvis
+#   app.kubernetes.io/part-of: kubernetes
 #   app.kubernetes.io/managed-by: kustomize
 #   env: staging
 secretGenerator:
@@ -25,6 +25,6 @@ generatorOptions:
   #   app.kubernetes.io/name: alertmanager-operated
   #   app.kubernetes.io/instance: alertmanager-operated
   #   app.kubernetes.io/component: monitoring
-  #   app.kubernetes.io/part-of: jarvis
+  #   app.kubernetes.io/part-of: kubernetes
   #   app.kubernetes.io/managed-by: kustomize
   #   app.kubernetes.io/manufacturer: jarvis

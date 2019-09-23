@@ -18,7 +18,7 @@ commonLabels:
   app.kubernetes.io/name: tekton-dashboard
   app.kubernetes.io/instance: tekton-dashboard-jarvis
   app.kubernetes.io/component: cicd
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
 namespace: tekton-pipelines
 resources:

@@ -22,7 +22,7 @@ commonLabels:
   app.kubernetes.io/instance: elastic-operator-minotor
   app.kubernetes.io/version: v0.9.0
   app.kubernetes.io/component: logging
-  app.kubernetes.io/part-of: skale-5-kubernetes
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
   env: staging
 images:

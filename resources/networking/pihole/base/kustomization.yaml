@@ -18,7 +18,7 @@ commonLabels:
   app.kubernetes.io/instance: pihole
   app.kubernetes.io/version: "v1"
   app.kubernetes.io/component: dns
-  app.kubernetes.io/part-of: jarvis
+  app.kubernetes.io/part-of: kubernetes
   app.kubernetes.io/managed-by: kustomize
 namespace: networking
 resources:
