@@ -18,7 +18,7 @@ See [BestPractices](BestPractices.md)
 
 ```yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
-genre: Kustomization
+kind: Kustomization
 bases:
 - git@github.com:nlamirault/manifests.git//dns/external-dns/base?ref=v0.1.0
 ```
