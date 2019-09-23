@@ -1,0 +1,143 @@
+---
+global:
+
+route:
+  group_by: [cluster, alertname]
+  # group_by: ['alertname', 'cluster', 'service', 'job']
+  group_interval: 2m
+  group_wait: 1m # wait a minute for other alert before sending
+  # repeat_interval: 720h # wait a month before resending alert
+  repeat_interval: 1h
+  receiver: alert_manager_critical
+  routes:
+  # Send severity=slack alerts to slack.
+  - receiver: monitoring-heartbeat
+    match:
+      alertname: DeadMansSwitch
+    group_wait: 10s
+    group_interval: 10s
+    repeat_interval: 10s
+  - match:
+      severity: low
+    receiver: alert_manager_low
+  - match:
+      severity: medium
+    receiver: alert_manager_medium
+  - match:
+      severity: critical
+    receiver: alert_manager_critical
+
+receivers:
+- name: monitoring-heartbeat
+  webhook_configs:
+  - url: "https://api.pagertree.com/integration/int_BkGKkBWUr"
+    send_resolved: true
+- name: alert_manager_incident
+  slack_configs:
+  - api_url: "https://hooks.slack.com/services/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"
+    username: "Jarvis / Staging"
+    color: "danger"
+    channel: '#alerts'
+    # icon_emoji: ":panda_face:"
+    title: "Jarvis / Staging - {{ .CommonLabels.alertname }}"
+    text: |-
+      Hello,
+
+      {{ range .Alerts -}}
+
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.message }}
+      *Details:*
+      {{ range .Labels.SortedPairs }}
+      • *{{ .Name }}:* `{{ .Value }}`
+      {{ end }}
+      {{- if .Annotations.runbook_url }} :notebook: *<{{ .Annotations.runbook_url }}|Runbook>* {{ end }}
+
+      {{ end }}
+
+      You can find more information on: https://jarvis-staging.lamirault.xyz
+      Have a great day !"
+
+    send_resolved: true
+
+- name: alert_manager_critical
+  slack_configs:
+  - api_url: "https://hooks.slack.com/services/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"
+    username: "Jarvis / Staging"
+    color: "danger"
+    channel: '#alerts'
+    # icon_emoji: ":panda_face:"
+    title: "Jarvis / Staging - {{ .CommonLabels.alertname }}"
+    text: |-
+      Hello,
+
+      {{ range .Alerts -}}
+
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.message }}
+      *Details:*
+      {{ range .Labels.SortedPairs }}
+      • *{{ .Name }}:* `{{ .Value }}`
+      {{ end }}
+      {{- if .Annotations.runbook_url }} :notebook: *<{{ .Annotations.runbook_url }}|Runbook>* {{ end }}
+
+      {{ end }}
+
+      You can find more information on: https://jarvis-staging.lamirault.xyz
+      Have a great day !"
+
+    send_resolved: true
+
+- name: alert_manager_medium
+  slack_configs:
+  - api_url: "https://hooks.slack.com/services/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"
+    username: "Jarvis / Staging"
+    color: "warning"
+    channel: '#alerts'
+    title: "Jarvis / Staging - {{ .CommonLabels.alertname }}"
+    text: |-
+      Hello,
+
+      {{ range .Alerts -}}
+
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.message }}
+      *Details:*
+      {{ range .Labels.SortedPairs }}
+      • *{{ .Name }}:* `{{ .Value }}`
+      {{ end }}
+      {{- if .Annotations.runbook_url }} :notebook: *<{{ .Annotations.runbook_url }}|Runbook>* {{ end }}
+
+      {{ end }}
+
+      You can find more information on: https://jarvis-staging.lamirault.xyz
+      Have a great day !"
+
+    send_resolved: true
+
+- name: alert_manager_low
+  slack_configs:
+  - api_url: "https://hooks.slack.com/services/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"
+    username: "Jarvis / Staging"
+    color: "#439FE0"
+    channel: '#alerts'
+    title: "Jarvis / Staging - {{ .CommonLabels.alertname }}"
+    text: |-
+      Hello,
+
+      {{ range .Alerts -}}
+
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.message }}
+      *Details:*
+      {{ range .Labels.SortedPairs }}
+      • *{{ .Name }}:* `{{ .Value }}`
+      {{ end }}
+      {{- if .Annotations.runbook_url }} :notebook: *<{{ .Annotations.runbook_url }}|Runbook>* {{ end }}
+
+      {{ end }}
+
+      You can find more information on: https://jarvis-staging.lamirault.xyz
+      Have a great day !"
+
+    send_resolved: true
