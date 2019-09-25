@@ -106,6 +106,27 @@ configMapGenerator:
 - name: grafana-dashboard-nginx
   files:
   - dashboards/nginx.json
+- name: thanos-overview
+  files:
+  - dashboards/thanos/thanos-overview.json
+- name: thanos-compact
+  files:
+  - dashboards/thanos/thanos-compact.json
+- name: thanos-querier
+  files:
+  - dashboards/thanos/thanos-querier.json
+- name: thanos-receive
+  files:
+  - dashboards/thanos/thanos-receive.json
+- name: thanos-rule
+  files:
+  - dashboards/thanos/thanos-rule.json
+- name: thanos-sidecar
+  files:
+  - dashboards/thanos/thanos-sidecar.json
+- name: thanos-store
+  files:
+  - dashboards/thanos/thanos-store.json
 
 # secretGenerator:
 # - name: grafana-datasources

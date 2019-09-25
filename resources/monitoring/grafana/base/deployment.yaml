@@ -18,7 +18,6 @@ metadata:
   labels:
     k8s-app: grafana
   name: grafana
-  namespace: monitoring
 spec:
   replicas: 1
   selector:
@@ -32,6 +31,15 @@ spec:
       containers:
       - image: grafana/grafana:latest
         name: grafana
+        envFrom:
+        - configMapRef:
+            name: grafana-config
+        env:
+        - name: GF_AUTH_GOOGLE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: GF_AUTH_GOOGLE_CLIENT_SECRET
         ports:
         - containerPort: 3000
           name: http
@@ -50,9 +58,9 @@ spec:
         - mountPath: /var/lib/grafana
           name: grafana-storage
           readOnly: false
-        - mountPath: /etc/grafana
-          name: grafana-config
-          readOnly: false
+        # - mountPath: /etc/grafana
+        #   name: grafana-config
+        #   readOnly: false
         - mountPath: /etc/grafana/provisioning/notifiers
           name: grafana-notifier
           readOnly: false
@@ -122,14 +130,35 @@ spec:
         - mountPath: /grafana-dashboard-definitions/0/rsrc-use
           name: grafana-dashboard-cluster-rsrc-use
           readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-alertmanager
-          name: grafana-dashboard-alertmanager
+        - mountPath: /grafana-dashboard-definitions/0/alertmanager-dashboard
+          name: alertmanager-dashboard
           readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-loki
-          name: grafana-dashboard-loki
+        - mountPath: /grafana-dashboard-definitions/0/loki-dashboard
+          name: loki-dashboard
           readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/grafana-dashboard-nginx
-          name: grafana-dashboard-nginx
+        - mountPath: /grafana-dashboard-definitions/0/nginx-dashboard
+          name: nginx-dashboard
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/thanos-overview
+          name: thanos-overview
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/thanos-compact
+          name: thanos-compact
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/thanos-querier
+          name: thanos-querier
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/thanos-receive
+          name: thanos-receive
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/thanos-rule
+          name: thanos-rule
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/thanos-sidecar
+          name: thanos-sidecar
+          readOnly: false
+        - mountPath: /grafana-dashboard-definitions/0/thanos-store
+          name: thanos-store
           readOnly: false
       # nodeSelector:
       #   beta.kubernetes.io/os: linux
@@ -146,9 +175,9 @@ spec:
       - configMap:
           name: grafana-dashboards
         name: grafana-dashboards
-      - name: grafana-config
-        secret:
-          secretName: grafana-config
+      # - name: grafana-config
+      #   secret:
+      #     secretName: grafana-config
       - name: grafana-notifier
         secret:
           secretName: grafana-notifier
@@ -213,11 +242,32 @@ spec:
           name: grafana-dashboard-cluster-rsrc-use
         name: grafana-dashboard-cluster-rsrc-use
       - configMap:
-          name: grafana-dashboard-alertmanager
-        name: grafana-dashboard-alertmanager
+          name: alertmanager-dashboard
+        name: alertmanager-dashboard
       - configMap:
-          name: grafana-dashboard-loki
-        name: grafana-dashboard-loki
+          name: loki-dashboard
+        name: loki-dashboard
       - configMap:
-          name: grafana-dashboard-nginx
-        name: grafana-dashboard-nginx
+          name: nginx-dashboard
+        name: nginx-dashboard
+      - configMap:
+          name: thanos-overview
+        name: thanos-overview
+      - configMap:
+          name: thanos-compact
+        name: thanos-compact
+      - configMap:
+          name: thanos-querier
+        name: thanos-querier
+      - configMap:
+          name: thanos-receive
+        name: thanos-receive
+      - configMap:
+          name: thanos-rule
+        name: thanos-rule
+      - configMap:
+          name: thanos-sidecar
+        name: thanos-sidecar
+      - configMap:
+          name: thanos-store
+        name: thanos-store
