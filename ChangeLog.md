@@ -1,10 +1,15 @@
 # ChangeLog
 
-## v0.1.0 (xx/xx/2019)
+## v0.2.0 (xx/xx/2019)
+
+- Bump Kustomize verstion to `v3.2.0`
+- Bump Kubeval version to `v0.14.0`
+
+## v0.1.0 (09/24/2019)
 
 - Use Kustomize `v3.1.0`
-- Use kubeval `v0.13.0` to validate manifests
-- Use conftest `v0.11.0`to verify policies
+- Use Kubeval `v0.13.0` to validate manifests
+- Use Conftest `v0.11.0`to verify policies
 - Cert-Manager `v0.9.1`
 - Default backend `v1.4`
 - Nginx Ingress controller `v0.21`
