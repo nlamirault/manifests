@@ -1,0 +1,63 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    component: thanos-receive
+  name: thanos-receive
+  namespace: monitoring
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: thanos-receive
+  serviceName: thanos-receive
+  template:
+    metadata:
+      labels:
+        component: thanos-receive
+    spec:
+      containers:
+      - args:
+        - receive
+        - --grpc-address=0.0.0.0:10901
+        - --http-address=0.0.0.0:10902
+        - --remote-write.address=0.0.0.0:19291
+        - --objstore.config=$(OBJSTORE_CONFIG)
+        - --tsdb.path=/var/thanos/tsdb
+        - --labels=replica="$(NAME)"
+        - --labels=receive="true"
+        env:
+        - name: NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: OBJSTORE_CONFIG
+          valueFrom:
+            secretKeyRef:
+              key: thanos.yaml
+              name: thanos-objectstorage
+        image: quay.io/thanos/thanos:latest
+        name: thanos-receive
+        ports:
+        - containerPort: 10901
+          name: grpc
+        - containerPort: 10902
+          name: http
+        - containerPort: 19291
+          name: remote-write
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /var/thanos/tsdb
+          name: data
+          readOnly: false
+      volumes:
+      - emptyDir: {}
+        name: data

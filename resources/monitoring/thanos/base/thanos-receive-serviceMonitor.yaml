@@ -1,0 +1,13 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: thanos-receive
+  namespace: monitoring
+spec:
+  endpoints:
+  - port: http
+  selector:
+    matchLabels:
+      component: thanos-receive

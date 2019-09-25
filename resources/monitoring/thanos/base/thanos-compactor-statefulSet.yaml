@@ -1,0 +1,65 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    component: thanos-compactor
+  name: thanos-compactor
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: thanos-compactor
+  serviceName: thanos-compactor
+  template:
+    metadata:
+      labels:
+        component: thanos-compactor
+    spec:
+      containers:
+      - args:
+        - compact
+        - --wait
+        - --retention.resolution-raw=16d
+        - --retention.resolution-5m=42d
+        - --retention.resolution-1h=180d
+        - --objstore.config=$(OBJSTORE_CONFIG)
+        - --data-dir=/var/thanos/compactor
+        env:
+        - name: OBJSTORE_CONFIG
+          valueFrom:
+            secretKeyRef:
+              key: thanos.yaml
+              name: thanos-objectstorage
+        image: quay.io/thanos/thanos:v0.7.0
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 10902
+            scheme: HTTP
+        name: thanos-compactor
+        ports:
+        - containerPort: 10902
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: 10902
+            scheme: HTTP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 2Gi
+          requests:
+            cpu: 100m
+            memory: 1Gi
+        volumeMounts:
+        - mountPath: /var/thanos/compactor
+          name: thanos-compactor-data
+          readOnly: false
+      volumes:
+      - emptyDir: {}
+        name: thanos-compactor-data
+  volumeClaimTemplates: []

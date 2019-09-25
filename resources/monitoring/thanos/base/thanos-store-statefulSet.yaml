@@ -1,0 +1,62 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    component: thanos-store
+  name: thanos-store
+  namespace: monitoring
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      component: thanos-store
+  serviceName: thanos-store
+  template:
+    metadata:
+      labels:
+        component: thanos-store
+    spec:
+      containers:
+      - args:
+        - store
+        - --data-dir=/var/thanos/store
+        - --grpc-address=0.0.0.0:10901
+        - --http-address=0.0.0.0:10902
+        - --objstore.config=$(OBJSTORE_CONFIG)
+        env:
+        - name: OBJSTORE_CONFIG
+          valueFrom:
+            secretKeyRef:
+              key: thanos.yaml
+              name: thanos-objectstorage
+        image: quay.io/thanos/thanos:latest
+        name: thanos-store
+        ports:
+        - containerPort: 10901
+          name: grpc
+        - containerPort: 10902
+          name: http
+        resources:
+          limits:
+            cpu: "2"
+            memory: 8Gi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        volumeMounts:
+        - mountPath: /var/thanos/store
+          name: thanos-store-data
+          readOnly: false
+      volumes: []
+  volumeClaimTemplates:
+  - metadata:
+      name: thanos-store-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 50Gi
+      storageClassName: standard

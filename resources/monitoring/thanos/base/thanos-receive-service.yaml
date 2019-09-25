@@ -1,0 +1,23 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: thanos-receive
+  name: thanos-receive
+  namespace: monitoring
+spec:
+  clusterIP: None
+  ports:
+  - name: grpc
+    port: 10901
+    targetPort: 10901
+  - name: http
+    port: 10902
+    targetPort: 10902
+  - name: remote-write
+    port: 19291
+    targetPort: 19291
+  selector:
+    component: thanos-receive

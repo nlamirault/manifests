@@ -1,0 +1,20 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+commonLabels:
+  app.kubernetes.io/manufacturer: skale-5
+namespace: monitoring
+resources:
+- thanos-compactor-statefulSet.yaml
+- thanos-compactor-service.yaml
+- thanos-compactor-serviceMonitor.yaml
+- thanos-querier-deployment.yaml
+- thanos-querier-service.yaml
+- thanos-querier-serviceMonitor.yaml
+- thanos-receive-statefulSet.yaml
+- thanos-receive-service.yaml
+- thanos-receive-serviceMonitor.yaml
+- thanos-store-statefulSet.yaml
+- thanos-store-service.yaml
+- thanos-store-serviceMonitor.yaml

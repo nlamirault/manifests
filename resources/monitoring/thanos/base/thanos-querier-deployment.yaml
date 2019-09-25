@@ -1,0 +1,52 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: thanos-querier
+  name: thanos-querier
+  namespace: monitoring
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: thanos-querier
+  template:
+    metadata:
+      labels:
+        component: thanos-querier
+    spec:
+      containers:
+      - args:
+        - query
+        - --query.replica-label=replica
+        - --grpc-address=0.0.0.0:10901
+        - --http-address=0.0.0.0:9090
+        - --store=dnssrv+_grpc._tcp.thanos-store.monitoring.svc.cluster.local
+        - --store=dnssrv+_grpc._tcp.thanos-receive.monitoring.svc.cluster.local
+        - --store=dnssrv+_grpc._tcp.prometheus-k8s.monitoring.svc.cluster.local
+        image: quay.io/thanos/thanos:latest
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9090
+            scheme: HTTP
+        name: thanos-querier
+        ports:
+        - containerPort: 10901
+          name: grpc
+        - containerPort: 9090
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9090
+            scheme: HTTP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 256Mi
