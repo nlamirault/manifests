@@ -16,6 +16,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: elastic-operator
+  labels:
+    k8s-app: elastic-operator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

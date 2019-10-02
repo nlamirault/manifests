@@ -14,25 +14,25 @@
 ---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-bases:
+resources:
 - ../../base
 namespace: logging
-commonLabels:
-  app.kubernetes.io/name: elastic-operator
-  app.kubernetes.io/instance: elastic-operator-minotor
-  app.kubernetes.io/version: v0.9.0
-  app.kubernetes.io/component: logging
-  app.kubernetes.io/part-of: kubernetes
-  app.kubernetes.io/managed-by: kustomize
-  env: staging
+# commonLabels:
+#   app.kubernetes.io/name: elastic-operator
+#   app.kubernetes.io/instance: elastic-operator-minotor
+#   app.kubernetes.io/version: v0.9.0
+#   app.kubernetes.io/component: logging
+#   app.kubernetes.io/part-of: kubernetes
+#   app.kubernetes.io/managed-by: kustomize
+#   env: staging
 images:
 - name: docker.elastic.co/eck/eck-operator:latest
   newName: docker.elastic.co/eck/eck-operator
-  newTag: v0.9.0
-# patchesJson6902:
-# - target:
-#     group: apps
-#     version: v1
-#     kind: Statefulset
-#     name: elastic-operator
-#   path: patch-statefulset.yaml
+  newTag: "0.9.0"
+patchesJson6902:
+- target:
+    group: apps
+    version: v1
+    kind: StatefulSet
+    name: elastic-operator
+  path: patch-statefulset.yaml

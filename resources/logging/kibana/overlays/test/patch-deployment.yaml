@@ -12,14 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-kind: Kustomization
-apiVersion: kustomize.config.k8s.io/v1beta1
-# commonLabels:
-#   app.kubernetes.io/manufacturer: jarvis
-namespace: logging
-resources:
-- serviceAccount.yaml
-- clusterRole.yaml
-- clusterRoleBinding.yaml
-- secret.yaml
-- statefulset.yaml
+- op: replace
+  path: /spec/version
+  value: 7.4.0
+- op: replace
+  path: /spec/volumeClaimTemplates/0/spec/resources/requests/storage
+  value: 5Gi
+- op: replace
+  path: /spec/podTemplate/spec/containers/0/resources
+  value:
+    requests:
+      cpu: 300m
+      memory: 300Mi
+    limits:
+      cpu: 600m
+      memory: 600Mi

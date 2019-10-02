@@ -16,19 +16,38 @@ apiVersion: kibana.k8s.elastic.co/v1alpha1
 kind: Kibana
 metadata:
   name: main
+  labels:
+    k8s-app: kibana
 spec:
   version: latest
   nodeCount: 1
   elasticsearchRef:
     name: main
   podTemplate:
-    metadata:
-      labels:
-        k8s-app: kibana
     spec:
+      metadata:
+        labels:
+          k8s-app: kibana
       containers:
       - name: kibana
         resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
           limits:
-            memory: 1Gi
-            cpu: 1
+            cpu: 300m
+            memory: 300Mi
+  volumeClaimTemplates:
+  - metadata:
+      name: kibana-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: standard
+  http:
+    service:
+      spec:
+        type: LoadBalancer

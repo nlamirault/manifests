@@ -14,21 +14,21 @@
 ---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-bases:
+resources:
 - ../../base
 namespace: logging
-commonLabels:
-  app.kubernetes.io/name: kibana
-  app.kubernetes.io/instance: kibana
-  app.kubernetes.io/version: v7.2.0
-  app.kubernetes.io/component: logging
-  app.kubernetes.io/part-of: kubernetes
-  app.kubernetes.io/managed-by: kustomize
-  env: staging
+# commonLabels:
+#   app.kubernetes.io/name: elasticsearch
+#   app.kubernetes.io/instance: elasticsearch
+#   app.kubernetes.io/version: v7.4.0
+#   app.kubernetes.io/component: logging
+#   app.kubernetes.io/part-of: kubernetes
+#   app.kubernetes.io/managed-by: kustomize
+#   env: staging
 patchesJson6902:
 - target:
-    group: kibana.k8s.elastic.co
+    group: elasticsearch.k8s.elastic.co
     version: v1alpha1
-    kind: Kibana
+    kind: Elasticsearch
     name: main
   path: patch-deployment.yaml

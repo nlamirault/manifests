@@ -14,6 +14,8 @@
 ---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
+# commonLabels:
+#   app.kubernetes.io/manufacturer: jarvis
 namespace: logging
 resources:
 - deployment.yaml

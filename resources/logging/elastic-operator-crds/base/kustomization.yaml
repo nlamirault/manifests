@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- op: replace
-  path: /spec/version
-  value: 7.2.0
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+# commonLabels:
+#   app.kubernetes.io/manufacturer: jarvis
+namespace: logging
+resources:
+- apmServers.yaml
+- elasticSearches.yaml
+- kibanas.yaml
+- trustedRelationships.yaml

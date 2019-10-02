@@ -18,15 +18,18 @@ metadata:
   name: elastic-operator
   labels:
     control-plane: elastic-operator
+    k8s-app: elastic-operator
 spec:
   selector:
     matchLabels:
       control-plane: elastic-operator
+      k8s-app: elastic-operator
   serviceName: elastic-operator
   template:
     metadata:
       labels:
         control-plane: elastic-operator
+        k8s-app: elastic-operator
     spec:
       serviceAccountName: elastic-operator
       containers:
@@ -42,8 +45,8 @@ spec:
           value: webhook-server-secret
         - name: WEBHOOK_PODS_LABEL
           value: elastic-operator
-        - name: OPERATOR_IMAGE
-          value: $(ECK_OPERATOR_IMAGE)
+        # - name: OPERATOR_IMAGE
+        #   value: docker.elastic.co/eck/eck-operator:latest
         resources:
           limits:
             cpu: 1

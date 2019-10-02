@@ -17,34 +17,45 @@ kind: Elasticsearch
 metadata:
   name: main
 spec:
-  version: latest
+  version: 7.4.0
   nodes:
-  - nodeCount: 3
+  - name: minotor
     config:
+      # most Elasticsearch configuration parameters are possible to set, e.g:
+      node.attr.attr_name: attr_value
       node.master: true
       node.data: true
       node.ingest: true
+      node.ml: true
     podTemplate:
-      metadata:
-        labels:
-          k8s-app: elasticsearch
       spec:
+      # metadata:
+      #   labels:
+      #     k8s-app: elasticsearch
         containers:
         - name: elasticsearch
-          resources:
-            limits:
-              memory: 4Gi
-              cpu: 1
           env:
           - name: ES_JAVA_OPTS
             value: "-Xms2g -Xmx2g"
+          resources:
+            requests:
+              memory: 2Gi
+              cpu: 300m
+            limits:
+              memory: 3Gi
+              cpu: 1000m
+    nodeCount: 3
     volumeClaimTemplates:
     - metadata:
-        name: elasticsearch-data # note: elasticsearch-data must be the name of the Elasticsearch volume
+        name: elasticsearch-data
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 10Gi
-        #storageClassName: standard # can be any available storage class
+            storage: 5Gi
+        storageClassName: standard
+    http:
+      service:
+        spec:
+          type: LoadBalancer

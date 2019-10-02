@@ -12,6 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- op: replace
-  path: /spec/version
-  value: 7.2.0
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+resources:
+- ../../base
+namespace: logging
+# commonLabels:
+#   app.kubernetes.io/name: kibana
+#   app.kubernetes.io/instance: kibana
+#   app.kubernetes.io/version: v7.2.0
+#   app.kubernetes.io/component: logging
+#   app.kubernetes.io/part-of: kubernetes
+#   app.kubernetes.io/managed-by: kustomize
+#   env: staging
+patchesJson6902:
+- target:
+    group: kibana.k8s.elastic.co
+    version: v1alpha1
+    kind: Kibana
+    name: main
+  path: patch-deployment.yaml
