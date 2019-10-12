@@ -16,8 +16,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flux
-  labels:
-    k8s-app: flux
 spec:
   replicas: 1
   selector:
@@ -76,7 +74,7 @@ spec:
       containers:
       - name: flux
         # There are no ":latest" images for flux. Find the most recent
-        # release or image version at https://hub.docker.com/r/weaveworks/flux/tags
+        # release or image version at https://hub.docker.com/r/fluxcd/flux/tags
         # and replace the tag here.
         image: docker.io/fluxcd/flux:latest
         imagePullPolicy: IfNotPresent
@@ -129,25 +127,34 @@ spec:
         #   mountPath: /root/gpg-import
         #   readOnly: true
 
+        # Include this if you want to supply HTTP basic auth credentials for git
+        # via the `GIT_AUTHUSER` and `GIT_AUTHKEY` environment variables using a
+        # secret.
+        # envFrom:
+        # - secretRef:
+        #     name: flux-git-auth
+
         args:
 
         # If you deployed memcached in a different namespace to flux,
         # or with a different service name, you can supply these
         # following two arguments to tell fluxd how to connect to it.
-        - --memcached-hostname=memcached.memorystore.svc.cluster.local
+        # - --memcached-hostname=memcached.default.svc.cluster.local
 
         # Use the memcached ClusterIP service name by setting the
         # memcached-service to string empty
-        # - --memcached-service=
+        - --memcached-service=
 
         # This must be supplied, and be in the tmpfs (emptyDir)
         # mounted above, for K8s >= 1.10
         - --ssh-keygen-dir=/var/fluxd/keygen
 
         # Replace the following URL to change the Git repository used by Flux.
-        - --git-url=git@github.com:nlamirault/jarvis
-        - --git-branch=develop
-        # include this if you want to restrict the manifests considered by flux
+        # HTTP basic auth credentials can be supplied using environment variables:
+        # https://$(GIT_AUTHUSER):$(GIT_AUTHKEY)@github.com/user/repository.git
+        - --git-url=git@github.com:fluxcd/flux-get-started
+        - --git-branch=master
+        # Include this if you want to restrict the manifests considered by flux
         # to those under the following relative paths in the git repository
         # - --git-path=subdir1,subdir2
 
@@ -157,6 +164,12 @@ spec:
 
         # Include this to enable git signature verification
         # - --git-verify-signatures
+
+        # Tell flux it has readonly access to the repo (default `false`)
+        # - --git-readonly
+
+        # Instruct flux where to put sync bookkeeping (default "git", meaning use a tag in the upstream git repo)
+        # - --sync-state=git
 
         # Include these next two to connect to an "upstream" service
         # (e.g., Weave Cloud). The token is particular to the service.
