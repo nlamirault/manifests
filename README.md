@@ -1,7 +1,7 @@
 # Kubernetes manifests
 
 This repo is a [bespoke configuration](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#bespoke-configuration)
-of `kustomize` targets used by Skale-5.
+of `kustomize` targets.
 
 ## Organization
 
