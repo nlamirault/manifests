@@ -1,21 +1,22 @@
-# Kubeval
+# Kubernetes manifests
 
-`kubeval` is a tool for validating a Kubernetes YAML or JSON configuration file.
-It does so using schemas generated from the Kubernetes OpenAPI specification, and
-therefore can validate schemas for multiple versions of Kubernetes.
+This repo is a [bespoke configuration](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#bespoke-configuration)
+of `kustomize` targets used by Skale-5.
 
-[![CircleCI](https://circleci.com/gh/instrumenta/kubeval.svg?style=svg)](https://circleci.com/gh/instrumenta/kubeval)
-[![Go Report
-Card](https://goreportcard.com/badge/github.com/instrumenta/kubeval)](https://goreportcard.com/report/github.com/instrumenta/kubeval)
-[![GoDoc](https://godoc.org/github.com/instrumenta/kubeval?status.svg)](https://godoc.org/github.com/instrumenta/kubeval)
+## Organization
 
+Each directory corresponds to a namespace. Except admin and namespaces.
 
-```
-$ kubeval my-invalid-rc.yaml
-WARN - fixtures/my-invalid-rc.yaml contains an invalid ReplicationController - spec.replicas: Invalid type. Expected: [integer,null], given: string
-$ echo $?
-1
-```
+In the directories of namespaces, we find the different services to deploy.
 
+## Best practices
 
-For full usage and installation instructions see [kubeval.instrumenta.dev](https://kubeval.instrumenta.dev/).
+See [BestPractices](BestPractices.md)
+
+## Tools
+
+| Name               | Releases           | Tags             |
+| -----------------  |:------------------:| ----------------:|
+| Kustomize          | `v3.1.0`           | `v0.2.0`         |
+| Kubeval            | `v0.13.0`          | `v0.2.0`         |
+| Conftest           | `v0.11.0`          | `v0.2.0`         |
