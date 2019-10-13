@@ -1,5 +1,7 @@
 # Cert-Manager
 
+![cert-manager](../../assets/certmanager.png)
+
 ## Description
 
 Automatically provision and manage TLS certificates in Kubernetes
