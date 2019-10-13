@@ -1,5 +1,7 @@
 # FluxCD
 
+![flux](../../assets/flux.svg)
+
 ## Description
 
 The GitOps operator for Kubernetes

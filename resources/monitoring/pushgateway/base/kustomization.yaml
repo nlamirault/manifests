@@ -1,0 +1,12 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+namespace: monitoring
+# commonLabels:
+#   app.kubernetes.io/manufacturer: jarvis
+resources:
+- serviceAccount.yaml
+- deployment.yaml
+- service.yaml
+- serviceMonitor.yaml

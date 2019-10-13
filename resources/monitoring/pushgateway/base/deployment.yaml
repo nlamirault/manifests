@@ -1,0 +1,49 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pushgateway
+  labels:
+    k8s-app: pushgateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: pushgateway
+  template:
+    metadata:
+      labels:
+        k8s-app: pushgateway
+    spec:
+      serviceAccount: pushgateway
+      containers:
+      - name: pushgateway
+        image: prom/pushgateway:latest
+        ports:
+        - name: metrics
+          containerPort: 9091
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /#/status
+            port: 9091
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /#/status
+            port: 9091
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: 50m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65534

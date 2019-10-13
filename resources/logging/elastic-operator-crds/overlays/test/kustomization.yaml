@@ -19,7 +19,7 @@ resources:
 namespace: logging
 # commonLabels:
 #   app.kubernetes.io/name: elastic-operator
-#   app.kubernetes.io/instance: elastic-operator-minotor
+#   app.kubernetes.io/instance: elastic-operator-jarvis
 #   app.kubernetes.io/version: v0.9.0
 #   app.kubernetes.io/component: logging
 #   app.kubernetes.io/part-of: kubernetes

@@ -1,0 +1,14 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+# commonLabels:
+#   app.kubernetes.io/manufacturer: jarvis
+namespace: certificates
+resources:
+- 0crd-certificaterequests.yaml
+- 0crd-certificates.yaml
+- 0crd-challenges.yaml
+- 0crd-clusterissuers.yaml
+- 0crd-issuers.yaml
+- 0crd-orders.yaml

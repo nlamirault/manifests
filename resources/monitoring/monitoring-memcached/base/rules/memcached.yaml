@@ -1,0 +1,49 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: memcached
+  labels:
+    k8s-app: prometheus
+    prometheus: k8s
+    role: alert-rules
+spec:
+  groups:
+  - name: MemcachedAlerts
+    rules:
+    - alert: MemcachedDown
+      expr: memcached_up == 0
+      for: 30m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Memcached down (instance {{ $labels.instance }})"
+        message: "Memcached node down\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: NotEnoughConnections
+      expr: memcached_connections_total < 5
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Not enough connections (instance {{ $labels.instance }})"
+        message: "Memcached instance should have more connections (> 5)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: Respawns
+      expr: memcached_uptime_seconds < 180
+      for: 30m
+      labels:
+        severity: medium
+      annotations:
+        summary: "Memcached uptime is low. (instance {{ $labels.instance }})"
+        message: "Memcached instance uptime should have higher\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: TooManyYieldedConnections
+      expr: memcached_connections_yielded_total > 10
+      for: 10m
+      labels:
+        severity: medium
+      annotations:
+        summary: "Too many yielded connections (instance {{ $labels.instance }})"
+        message: "Memcached instance has too many yielded connections\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
