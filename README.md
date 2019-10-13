@@ -17,6 +17,6 @@ See [BestPractices](BestPractices.md)
 
 | Name               | Releases           | Tags             |
 | -----------------  |:------------------:| ----------------:|
-| Kustomize          | `v3.1.0`           | `v0.2.0`         |
-| Kubeval            | `v0.13.0`          | `v0.2.0`         |
-| Conftest           | `v0.11.0`          | `v0.2.0`         |
+| Kustomize          | `v3.1.0`           | `v0.1.0`         |
+| Kubeval            | `v0.13.0`          | `v0.1.0`         |
+| Conftest           | `v0.11.0`          | `v0.1.0`         |
