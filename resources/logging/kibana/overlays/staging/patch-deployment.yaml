@@ -1,0 +1,17 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+---
+- op: replace
+  path: /spec/version
+  value: 7.4.0
+- op: replace
+  path: /spec/volumeClaimTemplates/0/spec/resources/requests/storage
+  value: 5Gi
+- op: replace
+  path: /spec/podTemplate/spec/containers/0/resources
+  value:
+    requests:
+      cpu: 300m
+      memory: 300Mi
+    limits:
+      cpu: 600m
+      memory: 600Mi

@@ -1,0 +1,22 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: varnish
+  labels:
+    k8s-app: prometheus
+    prometheus: k8s
+    role: alert-rules
+spec:
+  groups:
+  - name: VarnishAlerts
+    rules:
+
+    - alert: VarnishDown
+      expr: varnish_up == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: Varnish {{ $labels.instance }} is currently down

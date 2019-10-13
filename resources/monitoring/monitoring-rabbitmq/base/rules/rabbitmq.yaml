@@ -1,0 +1,77 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: rabbitmq
+  labels:
+    k8s-app: prometheus
+    prometheus: k8s
+    role: alert-rules
+spec:
+  groups:
+  - name: RabbitMQAlerts
+    rules:
+    - alert: RabbitmqDown
+      expr: rabbitmq_up == 0
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Rabbitmq down (instance {{ $labels.instance }})"
+        message: "RabbitMQ node down\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: ClusterPartition
+      expr: rabbitmq_partitions > 0
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Cluster partition (instance {{ $labels.instance }})"
+        message: "Cluster partition\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: TooManyConnections
+      expr: rabbitmq_connectionsTotal > 1000
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Too many connections (instance {{ $labels.instance }})"
+        message: "RabbitMQ instance has too many connections (> 1000)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: OutOfMemory
+      expr: rabbitmq_node_mem_used / rabbitmq_node_mem_limit * 100 > 90
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Out of memory (instance {{ $labels.instance }})"
+        message: "Memory available for RabbmitMQ is low (< 10%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: DeadLetterQueueFillingUp
+      expr: rabbitmq_queue_messages{queue="my-dead-letter-queue"} > 10
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Dead letter queue filling up (instance {{ $labels.instance }})"
+        message: "Dead letter queue is filling up (> 10 msgs)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: TooManyMessagesInQueue
+      expr: rabbitmq_queue_messages_ready{queue="my-queue"} > 1000
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Too many messages in queue (instance {{ $labels.instance }})"
+        message: "Queue is filling up (> 1000 msgs)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+    - alert: SlowQueueConsuming
+      expr: time() - rabbitmq_queue_head_message_timestamp{queue="my-queue"} > 60
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Slow queue consuming (instance {{ $labels.instance }})"
+        message: "Queue messages are consumed slowly (> 60s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+

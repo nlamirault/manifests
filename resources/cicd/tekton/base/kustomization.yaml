@@ -22,14 +22,6 @@ commonLabels:
   app.kubernetes.io/managed-by: kustomize
 namespace: tekton-pipelines
 resources:
-- 0crd-clusterTask.yaml
-- 0crd-conditions.yaml
-- 0crd-image.yaml
-- 0crd-pipelineResource.yaml
-- 0crd-pipelineRun.yaml
-- 0crd-pipeline.yaml
-- 0crd-taskRun.yaml
-- 0crd-task.yaml
 - aggregate-clusterRole.yaml
 - artifact-configmap.yaml
 - controller-admin-clusterRoleBinding.yaml

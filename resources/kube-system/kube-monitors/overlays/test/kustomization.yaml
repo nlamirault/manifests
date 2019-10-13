@@ -18,7 +18,7 @@ bases:
 - ../../base
 # commonLabels:
 #   app.kubernetes.io/name: kube-monitors
-#   app.kubernetes.io/instance: kube-monitors-minotor
+#   app.kubernetes.io/instance: kube-monitors-jarvis
 #   app.kubernetes.io/version: v0.31.1
 #   app.kubernetes.io/component: monitoring
 #   app.kubernetes.io/part-of: kubernetes

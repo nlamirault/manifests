@@ -1,0 +1,10 @@
+# Copyright (C) 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx
+  labels:
+    k8s-app: ingress-nginx
+spec:
+  loadBalancerIP: "35.242.137.21"

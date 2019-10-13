@@ -28,13 +28,15 @@ route:
     receiver: alert_manager_critical
 
 receivers:
+
 - name: monitoring-heartbeat
   webhook_configs:
-  - url: "https://api.pagertree.com/integration/int_BkGKkBWUr"
+  - url: "https://api.pagertree.com/integration/int_xxxxxxxx"
     send_resolved: true
+
 - name: alert_manager_incident
   slack_configs:
-  - api_url: "https://hooks.slack.com/services/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"
+  - api_url: "https://hooks.slack.com/services/xxx/xxxx/xxxxx"
     username: "Jarvis / Staging"
     color: "danger"
     channel: '#alerts'
@@ -62,7 +64,7 @@ receivers:
 
 - name: alert_manager_critical
   slack_configs:
-  - api_url: "https://hooks.slack.com/services/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"
+  - api_url: "https://hooks.slack.com/services/xxx/xxxx/xxxxx"
     username: "Jarvis / Staging"
     color: "danger"
     channel: '#alerts'
@@ -90,7 +92,7 @@ receivers:
 
 - name: alert_manager_medium
   slack_configs:
-  - api_url: "https://hooks.slack.com/services/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"
+  - api_url: "https://hooks.slack.com/services/xxx/xxxx/xxxxx"
     username: "Jarvis / Staging"
     color: "warning"
     channel: '#alerts'
@@ -117,7 +119,7 @@ receivers:
 
 - name: alert_manager_low
   slack_configs:
-  - api_url: "https://hooks.slack.com/services/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"
+  - api_url: "https://hooks.slack.com/services/xxx/xxxx/xxxxxP"
     username: "Jarvis / Staging"
     color: "#439FE0"
     channel: '#alerts'
