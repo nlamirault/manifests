@@ -14,7 +14,7 @@
 ---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-namespace: kube-system
+namespace: cilium
 commonLabels:
   app.kubernetes.io/manufacturer: jarvis
 resources:
