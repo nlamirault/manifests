@@ -18,19 +18,19 @@ metadata:
   name: images.caching.internal.knative.dev
   labels:
     knative.dev/crd-install: "true"
-    k8s-app: tekton
 spec:
   group: caching.internal.knative.dev
+  version: v1alpha1
   names:
+    kind: Image
+    plural: images
+    singular: image
     categories:
     - knative-internal
     - caching
-    kind: Image
-    plural: images
     shortNames:
     - img
-    singular: image
   scope: Namespaced
   subresources:
     status: {}
-  version: v1alpha1
+
