@@ -11,18 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-commonLabels:
-  app.kubernetes.io/name: knative
-  app.kubernetes.io/instance: knative
-  app.kubernetes.io/version: "v1"
-  app.kubernetes.io/component: knative
-  app.kubernetes.io/part-of: kubernetes
-  app.kubernetes.io/managed-by: kustomize
-resources:
-  - build.yaml
-  - monitoring.yaml
-  - release.yaml
-  - serving.yaml
+bases:
+- ../../base
+# Or using remote
+# - github.com/nlamirault/manifests/resources/knative-system/knative-operator-crds/base?ref=vx.y.z
 
+namespace: knative-system
