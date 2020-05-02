@@ -14,12 +14,8 @@
 ---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-resources:
-- serviceAccount-knative-serving-operator.yaml
-- clusterRoleBinding-knative-serving-operator-aggregated.yaml
-- clusterRoleBinding-knative-serving-operator.yaml
-- clusterRole-knative-serving-operator-aggregated.yaml
-- clusterRole-knative-serving-operator.yaml
-- configMap-config-logging.yaml
-- configMap-config-observability.yaml
-- deployment-knative-serving-operator.yaml
+bases:
+- ../../base
+# Or using remote
+# - github.com/nlamirault/manifests/resources/knative-system/knative/base?ref=vx.y.z
+namespace: knative-system
