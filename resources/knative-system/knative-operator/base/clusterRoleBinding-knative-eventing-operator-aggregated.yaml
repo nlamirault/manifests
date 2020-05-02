@@ -10,4 +10,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: knative-eventing-operator
-  namespace: default
+  namespace: knative-system
