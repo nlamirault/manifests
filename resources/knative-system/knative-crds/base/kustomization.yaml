@@ -16,3 +16,4 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 resources:
 - crd-knativeservings.operator.knative.dev.yaml
+- crd-knativeeventings.operator.knative.dev.yaml
