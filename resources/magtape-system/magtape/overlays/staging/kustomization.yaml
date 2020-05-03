@@ -6,3 +6,8 @@ bases:
 - ../../base
 
 namespace: magtape-system
+
+configMapGenerator:
+- name: magtape-env
+  envs:
+  - config/magtape.env

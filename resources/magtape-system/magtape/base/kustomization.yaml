@@ -14,8 +14,8 @@
 ---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-commonLabels:
-  app.kubernetes.io/manufacturer: jarvis
+# commonLabels:
+#   app.kubernetes.io/manufacturer: jarvis
 namespace: magtape-system
 resources:
 - serviceAccount.yaml
@@ -25,7 +25,6 @@ resources:
 - roleBinding.yaml
 - clusterRoleBinding-write.yaml
 - clusterRoleBinding-read.yaml
-- configMap-env.yaml
 - configMap-opaDefault.yaml
 - configMap-opaEntrypoint.yaml
 - deployment.yaml
