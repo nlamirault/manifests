@@ -8,7 +8,7 @@ webhooks:
   - name: magtape.webhook.k8s.t-mobile.com
     clientConfig:
       service:
-        name: magtape
+        name: magtape-svc
         namespace: magtape-system
         path: "/"
       caBundle:
