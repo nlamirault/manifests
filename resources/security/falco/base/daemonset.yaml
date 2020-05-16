@@ -60,7 +60,7 @@ spec:
             - -pk
           env:
             - name: FALCO_BPF_PROBE
-              value: true
+              value: "true"
           volumeMounts:
             - mountPath: /host/var/run/docker.sock
               name: docker-socket
