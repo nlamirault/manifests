@@ -1,0 +1,225 @@
+# Copyright (C) 2016-2020 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: falco
+  labels:
+    app: falco
+spec:
+  selector:
+    matchLabels:
+      app: falco
+      role: security
+  template:
+    metadata:
+      name: falco
+      labels:
+        app: falco
+        role: security
+    spec:
+      serviceAccountName: falco
+      # If eBPF enable
+      # hostNetwork: true
+      # dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: falco
+          image: docker.io/falcosecurity/falco:0.21.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: 200m
+              memory: 1024Mi
+          securityContext:
+            privileged: true
+          args:
+            - /usr/bin/falco
+            # If containerd
+            # - --cri
+            # - /host/run/containerd/containerd.sock
+            # end containerd
+            - -K
+            - /var/run/secrets/kubernetes.io/serviceaccount/token
+            - -k
+            - "https://$(KUBERNETES_SERVICE_HOST)"
+            - -pk
+          env:
+            - name: FALCO_BPF_PROBE
+              value: true
+          volumeMounts:
+            - mountPath: /host/var/run/docker.sock
+              name: docker-socket
+            # If containerd
+            # - mountPath: /host/run/containerd/containerd.sock
+            #   name: containerd-socket
+            - mountPath: /host/dev
+              name: dev-fs
+              readOnly: true
+            - mountPath: /host/proc
+              name: proc-fs
+              readOnly: true
+            - mountPath: /host/boot
+              name: boot-fs
+              readOnly: true
+            - mountPath: /host/lib/modules
+              name: lib-modules
+            - mountPath: /host/usr
+              name: usr-fs
+              readOnly: true
+            - mountPath: /dev/shm
+              name: dshm
+            # If eBPF
+            - mountPath: /host/etc
+              name: etc-fs
+              readOnly: true
+            # end
+            - mountPath: /etc/falco
+              name: config-volume
+            - mountPath: /etc/falco/rules.d
+              name: rules-volume
+            # If gRPC
+            - mountPath: /etc/falco/certs
+              name: certs-volume
+              readOnly: true
+            # end
+        # If NATS.io
+        # - name: falco-nats
+        #   image: sysdig/falco-nats:latest
+        #   imagePullPolicy: Always
+        #   args: [ "/bin/falco-nats", "-s", "DEFINE NATS_URL"]
+        #   volumeMounts:
+        #     - mountPath: /var/run/falco/
+        #       name: shared-pipe
+        # If SNS
+        # - name: falco-sns
+        #   image: sysdig/falco-sns:latest
+        #   imagePullPolicy: Always
+        #   args: [ "/bin/falco-sns", "-t", "SNS TOPIC TO DEFINE"]
+        #   volumeMounts:
+        #     - mountPath: /var/run/falco/
+        #       name: shared-pipe
+        #   env:
+        #     - name: AWS_ACCESS_KEY_ID
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: falco
+        #           key: aws_access_key_id
+        #     - name: AWS_SECRET_ACCESS_KEY
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: falco
+        #           key: aws_secret_access_key
+        #     - name: AWS_DEFAULT_REGION
+        #       valueFrom:
+        #         configMapKeyRef:
+        #           name: falco
+        #           key: aws_default_region
+        # If PubSub
+        # - name: falco-pubsub
+        #   image: sysdiglabs/falco-pubsub:latest
+        #   imagePullPolicy: Always
+        #   args: [ "/bin/falco-pubsub", "-t", "DEFINE PubSub Topic"]
+        #   volumeMounts:
+        #     - mountPath: /var/run/falco/
+        #       name: shared-pipe
+        #   env:
+        #     - name: GOOGLE_PROJECT_ID
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: falco
+        #           key: gcp-project-id
+        #     - name: GOOGLE_CREDENTIALS_DATA
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: falco
+        #           key: gcp-credentials-data
+      # If Nats, SNS or PubSub enable :
+      initContainers:
+      - name: init-pipe
+        image: busybox
+        command: ['mkfifo','/var/run/falco/nats']
+        volumeMounts:
+        - mountPath: /var/run/falco/
+          name: shared-pipe
+          readOnly: false
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+        # If Docker
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+        # If Containerd
+        # - name: containerd-socket
+        #   hostPath:
+        #     path: /run/containerd/containerd.sock
+        - name: dev-fs
+          hostPath:
+            path: /dev
+        - name: proc-fs
+          hostPath:
+            path: /proc
+        - name: boot-fs
+          hostPath:
+            path: /boot
+        - name: lib-modules
+          hostPath:
+            path: /lib/modules
+        - name: usr-fs
+          hostPath:
+            path: /usr
+        # If eBPF
+        # - name: etc-fs
+        #   hostPath:
+        #     path: /etc
+        - name: config-volume
+          configMap:
+            name: falco
+            items:
+              - key: falco.yaml
+                path: falco.yaml
+              - key: falco_rules.yaml
+                path: falco_rules.yaml
+              - key: falco_rules.local.yaml
+                path: falco_rules.local.yaml
+              - key: application_rules.yaml
+                path: rules.available/application_rules.yaml
+              # K8S Audit logs ?
+              # - key: k8s_audit_rules.yaml
+              #   path: k8s_audit_rules.yaml
+        # Custom Rules ?
+        # - name: rules-volume
+        #   configMap:
+        #     name: falco-rules
+        # If Nats, SNS or PubSub
+        # - name: shared-pipe
+        #   emptyDir: {}
+        # If gRPC enable
+        # - name: certs-volume
+        #   secret:
+        #     secretName: falco-certs
+        #     items:
+        #       - key: server.key
+        #         path: server.key
+        #       - key: server.crt
+        #         path: server.crt
+        #       - key: ca.crt
+        #         path: ca.crt
+  updateStrategy:
+    type: RollingUpdate
