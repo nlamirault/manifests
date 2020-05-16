@@ -36,7 +36,7 @@ spec:
       # dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: falco
-          image: docker.io/falcosecurity/falco:0.21.0
+          image: docker.io/falcosecurity/falco:0.22.1
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -49,28 +49,21 @@ spec:
             privileged: true
           args:
             - /usr/bin/falco
-            # If containerd
-            # - --cri
-            # - /host/run/containerd/containerd.sock
-            # end containerd
+            - --cri
+            - /host/run/containerd/containerd.sock
             - -K
             - /var/run/secrets/kubernetes.io/serviceaccount/token
             - -k
             - "https://$(KUBERNETES_SERVICE_HOST)"
             - -pk
           env:
-          - name: BPF_PROBE
+          - name: FALCO_BPF_PROBE
             value: ""
-          - name: SYSDIG_BPF_PROBE
-            value: "/root/.falco/falco-probe-bpf.o"
-          #   - name: FALCO_BPF_PROBE
-          #     value: "true"
           volumeMounts:
             - mountPath: /host/var/run/docker.sock
               name: docker-socket
-            # If containerd
-            # - mountPath: /host/run/containerd/containerd.sock
-            #   name: containerd-socket
+            - mountPath: /host/run/containerd/containerd.sock
+              name: containerd-socket
             - mountPath: /host/dev
               name: dev-fs
               readOnly: true
@@ -85,13 +78,9 @@ spec:
             - mountPath: /host/usr
               name: usr-fs
               readOnly: true
-            - mountPath: /dev/shm
-              name: dshm
-            # If eBPF
             - mountPath: /host/etc
               name: etc-fs
               readOnly: true
-            # end
             - mountPath: /etc/falco
               name: config-volume
             # Custom rules ?
@@ -164,17 +153,12 @@ spec:
         #   name: shared-pipe
         #   readOnly: false
       volumes:
-        - name: dshm
-          emptyDir:
-            medium: Memory
-        # If Docker
         - name: docker-socket
           hostPath:
             path: /var/run/docker.sock
-        # If Containerd
-        # - name: containerd-socket
-        #   hostPath:
-        #     path: /run/containerd/containerd.sock
+        - name: containerd-socket
+          hostPath:
+            path: /run/containerd/containerd.sock
         - name: dev-fs
           hostPath:
             path: /dev
@@ -190,22 +174,21 @@ spec:
         - name: usr-fs
           hostPath:
             path: /usr
-        # If eBPF
         - name: etc-fs
           hostPath:
             path: /etc
         - name: config-volume
           configMap:
             name: falco
-            items:
-              - key: falco.yaml
-                path: falco.yaml
-              - key: falco_rules.yaml
-                path: falco_rules.yaml
-              - key: falco_rules.local.yaml
-                path: falco_rules.local.yaml
-              - key: application_rules.yaml
-                path: rules.available/application_rules.yaml
+            # items:
+            #   - key: falco.yaml
+            #     path: falco.yaml
+            #   - key: falco_rules.yaml
+            #     path: falco_rules.yaml
+            #   - key: falco_rules.local.yaml
+            #     path: falco_rules.local.yaml
+            #   - key: application_rules.yaml
+            #     path: rules.available/application_rules.yaml
               # K8S Audit logs ?
               # - key: k8s_audit_rules.yaml
               #   path: k8s_audit_rules.yaml
