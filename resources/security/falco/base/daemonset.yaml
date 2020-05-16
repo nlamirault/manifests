@@ -90,8 +90,9 @@ spec:
             # end
             - mountPath: /etc/falco
               name: config-volume
-            - mountPath: /etc/falco/rules.d
-              name: rules-volume
+            # Custom rules ?
+            # - mountPath: /etc/falco/rules.d
+            #   name: rules-volume
             # If gRPC
             # - mountPath: /etc/falco/certs
             #   name: certs-volume
