@@ -25,7 +25,8 @@ transformers:
 configMapGenerator:
 - name: falco
   files:
-  - config/falco_rules.yaml
-  - config/application_rules.yaml
-  - config/falco_rules.local.yaml
-  - config/k8s_audit_rules.yaml
+  - config/falco.yaml
+  - config/rules/falco_rules.yaml
+  - config/rules/application_rules.yaml
+  - config/rules/falco_rules.local.yaml
+  - config/rules/k8s_audit_rules.yaml
