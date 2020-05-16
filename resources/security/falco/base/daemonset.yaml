@@ -84,18 +84,18 @@ spec:
             - mountPath: /dev/shm
               name: dshm
             # If eBPF
-            - mountPath: /host/etc
-              name: etc-fs
-              readOnly: true
+            # - mountPath: /host/etc
+            #   name: etc-fs
+            #   readOnly: true
             # end
             - mountPath: /etc/falco
               name: config-volume
             - mountPath: /etc/falco/rules.d
               name: rules-volume
             # If gRPC
-            - mountPath: /etc/falco/certs
-              name: certs-volume
-              readOnly: true
+            # - mountPath: /etc/falco/certs
+            #   name: certs-volume
+            #   readOnly: true
             # end
         # If NATS.io
         # - name: falco-nats
@@ -149,14 +149,15 @@ spec:
         #           name: falco
         #           key: gcp-credentials-data
       # If Nats, SNS or PubSub enable :
-      initContainers:
-      - name: init-pipe
-        image: busybox
-        command: ['mkfifo','/var/run/falco/nats']
-        volumeMounts:
-        - mountPath: /var/run/falco/
-          name: shared-pipe
-          readOnly: false
+      # If Nats, SNS or PubSub
+      # initContainers:
+      # - name: init-pipe
+      #   image: busybox
+      #   command: ['mkfifo','/var/run/falco/nats']
+        # volumeMounts:
+        # - mountPath: /var/run/falco/
+        #   name: shared-pipe
+        #   readOnly: false
       volumes:
         - name: dshm
           emptyDir:
@@ -206,7 +207,7 @@ spec:
         # Custom Rules ?
         # - name: rules-volume
         #   configMap:
-        #     name: falco-rules
+        #     name: falco-custom
         # If Nats, SNS or PubSub
         # - name: shared-pipe
         #   emptyDir: {}
