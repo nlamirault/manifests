@@ -88,9 +88,9 @@ spec:
             - mountPath: /dev/shm
               name: dshm
             # If eBPF
-            # - mountPath: /host/etc
-            #   name: etc-fs
-            #   readOnly: true
+            - mountPath: /host/etc
+              name: etc-fs
+              readOnly: true
             # end
             - mountPath: /etc/falco
               name: config-volume
@@ -191,9 +191,9 @@ spec:
           hostPath:
             path: /usr
         # If eBPF
-        # - name: etc-fs
-        #   hostPath:
-        #     path: /etc
+        - name: etc-fs
+          hostPath:
+            path: /etc
         - name: config-volume
           configMap:
             name: falco
