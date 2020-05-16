@@ -118,6 +118,10 @@ spec:
         args:
           - "--policies=magtape-system"
           - "--require-policy-label=true"
+          # Add Resources to Cache
+          # - "--replicate=apps/v1/deployments"
+          # - "--replicate=v1/services"
+          # - "--replicate-cluster=v1/namespaces"
         resources:
           limits:
             cpu: 500m
