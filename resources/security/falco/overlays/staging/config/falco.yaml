@@ -1,3 +1,19 @@
+#
+# Copyright (C) 2019 The Falco Authors.
+#
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
 # File(s) or Directories containing Falco rules, loaded at startup.
 # The name "rules_file" is only for backwards compatibility.
@@ -63,11 +79,12 @@ buffered_outputs: false
 # The rate at which log/alert messages are emitted is governed by a
 # token bucket. The rate corresponds to one message every 30 seconds
 # with a burst of 10 messages.
+
 syscall_event_drops:
   actions:
     - log
     - alert
-  rate: 0.03333
+  rate: .03333
   max_burst: 10
 
 # A throttling mechanism implemented as a token bucket limits the
@@ -81,6 +98,7 @@ syscall_event_drops:
 # an initial quiet period, and then up to 1 notification per second
 # afterward. It would gain the full burst back after 1000 seconds of
 # no activity.
+
 outputs:
   rate: 1
   max_burst: 1000
@@ -98,6 +116,7 @@ syslog_output:
 #
 # Also, the file will be closed and reopened if falco is signaled with
 # SIGUSR1.
+
 file_output:
   enabled: false
   keep_alive: false
@@ -108,7 +127,7 @@ stdout_output:
 
 # Falco contains an embedded webserver that can be used to accept K8s
 # Audit Events. These config options control the behavior of that
-# webserver. (By default, the webserver is disabled).
+# webserver. (By default, the webserver is enabled).
 #
 # The ssl_certificate is a combination SSL Certificate and corresponding
 # key contained in a single file. You can generate a key/cert as follows:
@@ -120,13 +139,13 @@ stdout_output:
 webserver:
   enabled: true
   listen_port: 8765
-  k8s_audit_endpoint: /k8s-audit
+  k8s_audit_endpoint: /k8s_audit
   ssl_enabled: false
   ssl_certificate: /etc/falco/falco.pem
 
 # Possible additional things you might want to do with program output:
 #   - send to a slack webhook:
-#         program: "\"jq '{text: .output}' | curl -d @- -X POST https://hooks.slack.com/services/XXX\""
+#         program: "jq '{text: .output}' | curl -d @- -X POST https://hooks.slack.com/services/XXX"
 #   - logging (alternate method than syslog):
 #         program: logger -t falco-test
 #   - send over a network connection:
@@ -142,20 +161,27 @@ webserver:
 program_output:
   enabled: false
   keep_alive: false
-  program: |
-    mail -s "Falco Notification" someone@example.com
+  program: "jq '{text: .output}' | curl -d @- -X POST https://hooks.slack.com/services/XXX"
 
 http_output:
   enabled: false
   url: http://some.url
 
+# gRPC server configuration.
+# The gRPC server is secure by default (mutual TLS) so you need to generate certificates and update their paths here.
+# By default the gRPC server is off.
+# You can configure the address to bind and expose it.
+# By modifying the threadiness configuration you can fine-tune the number of threads (and context) it will use.
 grpc:
   enabled: false
   bind_address: "0.0.0.0:5060"
   threadiness: 8
-  private_key: /etc/falco/certs/server.key
-  cert_chain: /etc/falco/certs/server.crt
-  root_certs: /etc/falco/certs/ca.crt
+  private_key: "/etc/falco/certs/server.key"
+  cert_chain: "/etc/falco/certs/server.crt"
+  root_certs: "/etc/falco/certs/ca.crt"
 
+# gRPC output service.
+# By default it is off.
+# By enabling this all the output events will be kept in memory until you read them with a gRPC client.
 grpc_output:
   enabled: false
