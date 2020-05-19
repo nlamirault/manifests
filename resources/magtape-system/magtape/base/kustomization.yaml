@@ -1,0 +1,47 @@
+# Copyright (C) 2019 Nicolas Lamirault <ops@jarvis.com>
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+resources:
+- serviceAccount.yaml
+- role.yaml
+- roleBinding.yaml
+- clusterRole-magtape-read.yaml
+- clusterRole-magtape-write.yaml
+- clusterRoleBinding-magtape-read-crb.yaml
+- clusterRoleBinding-magtape-write-crb.yaml
+- configmap-opa-default-main.yaml
+- configmap-opa-entrypoint.yaml
+- configmap-vwc-template.yaml
+- deployment.yaml
+- pdb.yaml
+- service.yaml
+
+configMapGenerator:
+- name: policy-liveness-probe-check
+  files:
+  - config/policies/policy-liveness-probe-check.rego
+- name: policy-pdb-check
+  files:
+  - config/policies/policy-pdb-check.rego
+- name: policy-port-name-mismatch
+  files:
+  - config/policies/policy-port-name-mismatch.rego
+- name: policy-privileged-pod-check
+  files:
+  - config/policies/policy-privileged-pod-check.rego
+- name: policy-readiness-probe-check
+  files:
+  - config/policies/policy-readiness-probe-check.rego
+- name: policy-resource-limits-check
+  files:
+  - config/policies/policy-resource-limits-check.rego
+- name: policy-resource-requests-check
+  files:
+  - config/policies/policy-resource-requests-check.rego
+
+generatorOptions:
+  labels:
+    app: opa
+    openpolicyagent.org/policy: rego
