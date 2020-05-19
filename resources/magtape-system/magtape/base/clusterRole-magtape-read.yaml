@@ -4,7 +4,7 @@ kind: ClusterRole
 metadata:
   name: magtape-read
   labels:
-    k8s-app: magtape
+    app: magtape
 rules:
 - apiGroups:
   - ""

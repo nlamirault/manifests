@@ -1,38 +1,47 @@
-# Copyright (C) 2016, 2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
-
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Copyright (C) 2019 Nicolas Lamirault <ops@jarvis.com>
 ---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-# commonLabels:
-#   app.kubernetes.io/manufacturer: jarvis
 
 resources:
 - serviceAccount.yaml
-- clusterRole-write.yaml
-- clusterRole-read.yaml
 - role.yaml
 - roleBinding.yaml
-- clusterRoleBinding-write.yaml
-- clusterRoleBinding-read.yaml
-- configMap-opaDefault.yaml
-- configMap-opaEntrypoint.yaml
+- clusterRole-magtape-read.yaml
+- clusterRole-magtape-write.yaml
+- clusterRoleBinding-magtape-read-crb.yaml
+- clusterRoleBinding-magtape-write-crb.yaml
+- configmap-opa-default-main.yaml
+- configmap-opa-entrypoint.yaml
+- configmap-vwc-template.yaml
 - deployment.yaml
 - pdb.yaml
 - service.yaml
-- vwc.yaml
 
 configMapGenerator:
-- name: magtape-vwc-template
+- name: policy-liveness-probe-check
   files:
-    - magtape-vwc=vwc.yaml
+  - config/policies/policy-liveness-probe-check.rego
+- name: policy-pdb-check
+  files:
+  - config/policies/policy-pdb-check.rego
+- name: policy-port-name-mismatch
+  files:
+  - config/policies/policy-port-name-mismatch.rego
+- name: policy-privileged-pod-check
+  files:
+  - config/policies/policy-privileged-pod-check.rego
+- name: policy-readiness-probe-check
+  files:
+  - config/policies/policy-readiness-probe-check.rego
+- name: policy-resource-limits-check
+  files:
+  - config/policies/policy-resource-limits-check.rego
+- name: policy-resource-requests-check
+  files:
+  - config/policies/policy-resource-requests-check.rego
+
+generatorOptions:
+  labels:
+    app: opa
+    openpolicyagent.org/policy: rego

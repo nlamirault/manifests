@@ -1,9 +1,10 @@
+---
 kind: ConfigMap
 apiVersion: v1
 metadata:
   name: magtape-opa-entrypoint
   labels:
-    k8s-app: opa
+    app: opa
     openpolicyagent.org/policy: rego
 data:
   magtape.rego: |-

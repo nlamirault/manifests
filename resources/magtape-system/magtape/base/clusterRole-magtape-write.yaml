@@ -1,9 +1,10 @@
+---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: magtape-write
   labels:
-    k8s-app: magtape
+    app: magtape
 rules:
 - apiGroups:
   - admissionregistration.k8s.io

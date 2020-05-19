@@ -4,7 +4,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: magtape-write
   labels:
-    k8s-app: magtape
+    app: magtape
 roleRef:
   kind: ClusterRole
   name: magtape-write

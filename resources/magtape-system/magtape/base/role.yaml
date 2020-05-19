@@ -1,10 +1,9 @@
+---
 # Define role for OPA/kube-mgmt to update configmaps with policy status.
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: magtape-ops
-  labels:
-    k8s-app: magtape
 rules:
 - apiGroups:
   - ""

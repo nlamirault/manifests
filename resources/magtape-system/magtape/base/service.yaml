@@ -4,13 +4,13 @@ kind: Service
 metadata:
   name: magtape-svc
   labels:
-    k8s-app: magtape
+    app: magtape
 spec:
   ports:
   - name: https
     port: 443
     targetPort: 5000
   selector:
-    k8s-app: magtape
+    app: magtape
   sessionAffinity: None
   type: ClusterIP

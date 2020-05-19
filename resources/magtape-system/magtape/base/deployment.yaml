@@ -1,23 +1,25 @@
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: magtape
   labels:
-    k8s-app: magtape
+    app: magtape
 spec:
   replicas: 3
   selector:
     matchLabels:
-      k8s-app: magtape
+      app: magtape
   template:
     metadata:
       labels:
-        k8s-app: magtape
+        app: magtape
     spec:
       serviceAccountName: magtape
       initContainers:
         - name: magtape-init
-          image: tmobile/magtape-init:v2.1.1
+          image: tmobile/magtape-init:v2.1.2
           command: [/app/magtape-init.py]
           imagePullPolicy: Always
           env:
@@ -39,7 +41,7 @@ spec:
             mountPath: /vwc
       containers:
       - name: magtape
-        image: tmobile/magtape:v2.1.1
+        image: tmobile/magtape:v2.1.2
         ports:
         - containerPort: 5000
         command: [/app/magtape.py]
@@ -118,10 +120,6 @@ spec:
         args:
           - "--policies=magtape-system"
           - "--require-policy-label=true"
-          # Add Resources to Cache
-          # - "--replicate=apps/v1/deployments"
-          # - "--replicate=v1/services"
-          # - "--replicate-cluster=v1/namespaces"
         resources:
           limits:
             cpu: 500m
