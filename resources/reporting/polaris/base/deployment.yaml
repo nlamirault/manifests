@@ -15,10 +15,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    checksum/config: '8aa5a565fba7a2db98d46752087de8c1dcc83b70cd762c5829d5ba01270d54a2'
   name: polaris-dashboard
-  namespace: reporting
   labels:
     app: polaris
     component: dashboard
@@ -44,7 +41,7 @@ spec:
         - --dashboard
         - --config
         - /opt/app/config.yaml
-        image: quay.io/reactiveops/polaris:latest
+        image: quay.io/reactiveops/polaris:1.0.1
         imagePullPolicy: 'Always'
         name: dashboard
         ports:
