@@ -19,7 +19,7 @@ spec:
       serviceAccount: falco
       containers:
         - name: falco
-          image: falcosecurity/falco:latest
+          image: falcosecurity/falco:v0.23.0
           securityContext:
             privileged: true
 # Uncomment the 3 lines below to enable eBPF support for Falco.
