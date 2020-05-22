@@ -161,7 +161,7 @@ webserver:
 program_output:
   enabled: false
   keep_alive: false
-  program: "jq '{text: .output}' | curl -d @- -X POST https://hooks.slack.com/services/XXX"
+  program: "jq '{text: .output}' | curl -d @- -X POST https://hooks.slack.com/services/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"
 
 http_output:
   enabled: false

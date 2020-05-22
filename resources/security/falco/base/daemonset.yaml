@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: falco-daemonset
+  name: falco
   labels:
     app: falco
     role: security
@@ -16,7 +16,7 @@ spec:
         app: falco
         role: security
     spec:
-      serviceAccount: falco-account
+      serviceAccount: falco
       containers:
         - name: falco
           image: falcosecurity/falco:latest
@@ -26,19 +26,10 @@ spec:
 # This allows Falco to run on Google COS.
 # Leave blank for the default probe location, or set to the path
 # of a precompiled probe.
-         env:
-         - name: FALCO_BPF_PROBE
-           value: ""
-          args: [
-            "/usr/bin/falco",
-            "--cri",
-            "/run/containerd/containerd.sock",
-            "-K",
-            "/var/run/secrets/kubernetes.io/serviceaccount/token",
-            "-k",
-            "https://$(KUBERNETES_SERVICE_HOST)",
-            "-pk"
-          ]
+          env:
+          - name: FALCO_BPF_PROBE
+            value: ""
+          args: [ "/usr/bin/falco", "--cri", "/run/containerd/containerd.sock", "-K", "/var/run/secrets/kubernetes.io/serviceaccount/token", "-k", "https://$(KUBERNETES_SERVICE_HOST)", "-pk"]
           volumeMounts:
             - mountPath: /host/var/run/docker.sock
               name: docker-socket
