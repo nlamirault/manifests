@@ -1,5 +1,3 @@
-{{- range $key, $val := .Values.clusterStacks }}
-{{- if $val.deploy }}
 apiVersion: stacks.crossplane.io/v1alpha1
 kind: ClusterStackInstall
 metadata:
@@ -9,9 +7,45 @@ metadata:
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
     app.kubernetes.io/version: v0.9.0
-  name: "provider-{{ $key }}"
+  name: provider-gcp
 spec:
-  package: "crossplane/provider-{{ $key }}:{{ $val.version }}"
+  package: crossplane/provider-gcp-v0.7.0
 ---
-{{- end }}
-{{- end }}
+apiVersion: stacks.crossplane.io/v1alpha1
+kind: ClusterStackInstall
+metadata:
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+  name: provider-aws
+spec:
+  package: crossplane/provider-aws-v0.7.0
+---
+apiVersion: stacks.crossplane.io/v1alpha1
+kind: ClusterStackInstall
+metadata:
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+  name: provider-azure
+spec:
+  package: crossplane/provider-azure-v0.7.0
+---
+apiVersion: stacks.crossplane.io/v1alpha1
+kind: ClusterStackInstall
+metadata:
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+  name: provider-rook
+spec:
+  package: crossplane/provider-rook-v0.5.0
