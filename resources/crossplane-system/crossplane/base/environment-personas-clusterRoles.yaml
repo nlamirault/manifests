@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
     rbac.crossplane.io/aggregate-to-crossplane-admin: "true"
     crossplane.io/scope: "environment"
 aggregationRule:
@@ -25,7 +25,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
     rbac.crossplane.io/aggregate-to-environment-admin: "true"
 rules:
 - apiGroups:
@@ -58,7 +58,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
     rbac.crossplane.io/aggregate-to-environment-admin: "true"
     crossplane.io/scope: "environment"
 aggregationRule:
@@ -76,7 +76,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
     rbac.crossplane.io/aggregate-to-environment-edit: "true"
 rules:
 - apiGroups:
@@ -119,7 +119,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
     rbac.crossplane.io/aggregate-to-environment-edit: "true"
     crossplane.io/scope: "environment"
 aggregationRule:
@@ -137,7 +137,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
     rbac.crossplane.io/aggregate-to-environment-view: "true"
 rules:
 - apiGroups:

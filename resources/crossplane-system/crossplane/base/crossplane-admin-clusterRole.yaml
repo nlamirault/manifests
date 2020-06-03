@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
     crossplane.io/scope: "system"
 aggregationRule:
   clusterRoleSelectors:
@@ -24,7 +24,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
     crossplane.io/scope: "system"
     rbac.crossplane.io/aggregate-to-crossplane-admin: "true"
 rules:
@@ -72,7 +72,7 @@ metadata:
     app.kubernetes.io/component: crossplane
     app.kubernetes.io/instance: crossplane
     app.kubernetes.io/name: crossplane
-    app.kubernetes.io/version: v0.9.0
+    app.kubernetes.io/version: v0.11.0
   name: crossplane-admin
 roleRef:
   apiGroup: rbac.authorization.k8s.io
