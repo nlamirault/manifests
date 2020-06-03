@@ -60,13 +60,3 @@ spec:
           requests:
             cpu: 100m
             memory: 256Mi
-      # If hostedConfig
-      #   volumeMounts:
-      #     - mountPath: /var/run/secrets/tenant
-      #       name: tenant-config
-      #       readOnly: true
-      # volumes:
-      #   - name: tenant-config
-      #     secret:
-      #       defaultMode: 420
-      #       secretName: {{ .Values.hostedConfig.tenantKubeconfigSecret | quote }}
