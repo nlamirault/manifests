@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crossplane
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crossplane
+      app.kubernetes.io/component: crossplane
+      app.kubernetes.io/instance: crossplane
+      app.kubernetes.io/name: crossplane
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: crossplane
+        app.kubernetes.io/component: crossplane
+        app.kubernetes.io/instance: crossplane
+        app.kubernetes.io/name: crossplane
+    spec:
+      serviceAccountName: crossplane
+      containers:
+      - image: crossplane/crossplane:v0.9.0
+        args:
+        - '--debug'
+        imagePullPolicy: Always
+        name: crossplane
+        resources:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        # If Hosted
+        # env:
+        #   - name: KUBERNETES_SERVICE_HOST
+        #     value: {{ .Values.hostedConfig.tenantKubernetesServiceHost | quote }}
+        #   - name: KUBERNETES_SERVICE_PORT
+        #     value: {{ .Values.hostedConfig.tenantKubernetesServicePort | quote }}
+        volumeMounts:
+          - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+            name: sa-token
+            readOnly: true
+      automountServiceAccountToken: false
+      serviceAccount: ""
+      serviceAccountName: ""
+      volumes:
+        - name: sa-token
+          secret:
+            defaultMode: 420
+            secretName: {{ .Values.hostedConfig.crossplaneSATokenSecret | quote }}

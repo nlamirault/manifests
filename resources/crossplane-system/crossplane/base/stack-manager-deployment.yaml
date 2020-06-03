@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crossplane-stack-manager
+  labels:
+    app: crossplane-stack-manager
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crossplane-stack-manager
+      app.kubernetes.io/component: crossplane
+      app.kubernetes.io/instance: crossplane
+      app.kubernetes.io/name: crossplane
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: crossplane-stack-manager
+        app.kubernetes.io/component: crossplane
+        app.kubernetes.io/instance: crossplane
+        app.kubernetes.io/name: crossplane
+    spec:
+      serviceAccountName: stack-manager
+      containers:
+      - image: crossplane/crossplane:v0.9.0
+        args:
+        - stack
+        - manage
+        {{- if .Values.hostedConfig.enabled }}
+        - --tenant-kubeconfig
+        - /var/run/secrets/tenant/kubeconfig
+        - --host-controller-namespace
+        - {{ .Values.hostedConfig.controllerNamespace | quote }}
+        {{- end }}
+        {{- if .Values.templateStacks.enabled }}
+        - --templates
+        {{- if .Values.templateStacks.controllerImage }}
+        - --templating-controller-image
+        - {{ .Values.templateStacks.controllerImage | quote }}
+        {{- end }}
+        {{- end }}
+        {{- range $arg := .Values.args }}
+        - {{ $arg }}
+        {{- end }}
+        imagePullPolicy: Always
+        name: crossplane
+        env:
+        # The pod name to pass with the downward API
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        # The pod namespace to pass with the downward API
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        resources:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+      {{- if .Values.hostedConfig.enabled }}
+        volumeMounts:
+          - mountPath: /var/run/secrets/tenant
+            name: tenant-config
+            readOnly: true
+      volumes:
+        - name: tenant-config
+          secret:
+            defaultMode: 420
+            secretName: {{ .Values.hostedConfig.tenantKubeconfigSecret | quote }}
+      {{- end }}

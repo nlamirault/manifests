@@ -1,0 +1,19 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+commonLabels:
+  app.kubernetes.io/part-of: portefaix
+  app.kubernetes.io/managed-by: kustomize
+resources:
+- serviceAccount.yaml
+- stack-manager-serviceAccount.yaml
+- clusterRole.yaml
+- clusterRoleBinding.yaml
+- crossplane-admin-clusterRole.yaml
+- environment-personas-clusterRoles.yaml
+- namespace-personas-clusterRoles.yaml
+- stack-manager-clusterRoleBinding.yaml
+- clusterstackinstalls.yaml
+- deployment.yaml
+- stack-manager-deployment.yaml

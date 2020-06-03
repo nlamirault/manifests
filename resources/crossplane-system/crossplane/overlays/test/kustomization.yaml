@@ -1,0 +1,8 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+bases:
+- ../../base
+commonLabels:
+  env: test

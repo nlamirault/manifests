@@ -1,0 +1,44 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+- apiGroups:
+  - cache.crossplane.io
+  - compute.crossplane.io
+  - database.crossplane.io
+  - kubernetes.crossplane.io
+  - core.crossplane.io
+  - stacks.crossplane.io
+  - storage.crossplane.io
+  - workload.crossplane.io
+  - core.oam.dev
+  resources:
+    - "*"
+  verbs:
+    - "*"

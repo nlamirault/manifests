@@ -1,0 +1,30 @@
+# Copyright (C) 2019 Skale-5 <ops@skale-5.com>
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+commonLabels:
+  app.kubernetes.io/part-of: portefaix
+  app.kubernetes.io/managed-by: kustomize
+resources:
+  - cache.crossplane.io_redisclusters.yaml
+  - compute.crossplane.io_kubernetesclusters.yaml
+  - compute.crossplane.io_machineinstances.yaml
+  - core.oam.dev_applicationconfigurations.yaml
+  - core.oam.dev_components.yaml
+  - core.oam.dev_containerizedworkloads.yaml
+  - core.oam.dev_manualscalertraits.yaml
+  - core.oam.dev_scopedefinitions.yaml
+  - core.oam.dev_traitdefinitions.yaml
+  - core.oam.dev_workloaddefinitions.yaml
+  - database.crossplane.io_mysqlinstances.yaml
+  - database.crossplane.io_nosqlinstances.yaml
+  - database.crossplane.io_postgresqlinstances.yaml
+  - kubernetes.crossplane.io_providers.yaml
+  - stacks.crossplane.io_clusterstackinstalls.yaml
+  - stacks.crossplane.io_stackdefinitions.yaml
+  - stacks.crossplane.io_stackinstalls.yaml
+  - stacks.crossplane.io_stacks.yaml
+  - storage.crossplane.io_buckets.yaml
+  - workload.crossplane.io_kubernetesapplicationresources.yaml
+  - workload.crossplane.io_kubernetesapplications.yaml
+  - workload.crossplane.io_kubernetestargets.yaml

@@ -1,0 +1,17 @@
+{{- range $key, $val := .Values.clusterStacks }}
+{{- if $val.deploy }}
+apiVersion: stacks.crossplane.io/v1alpha1
+kind: ClusterStackInstall
+metadata:
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+  name: "provider-{{ $key }}"
+spec:
+  package: "crossplane/provider-{{ $key }}:{{ $val.version }}"
+---
+{{- end }}
+{{- end }}

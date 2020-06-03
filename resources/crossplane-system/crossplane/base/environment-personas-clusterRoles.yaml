@@ -1,0 +1,182 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane-env-admin
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+    rbac.crossplane.io/aggregate-to-crossplane-admin: "true"
+    crossplane.io/scope: "environment"
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.crossplane.io/aggregate-to-environment-admin: "true"
+rules: [] # Rules are automatically filled in by the controller manager.
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane:stack-manager:env:default:admin
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+    rbac.crossplane.io/aggregate-to-environment-admin: "true"
+rules:
+- apiGroups:
+  - cache.crossplane.io
+  - compute.crossplane.io
+  - database.crossplane.io
+  - kubernetes.crossplane.io
+  - core.crossplane.io
+  - stacks.crossplane.io
+  - storage.crossplane.io
+  - workload.crossplane.io
+  resources:
+  - "*"
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane-env-edit
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+    rbac.crossplane.io/aggregate-to-environment-admin: "true"
+    crossplane.io/scope: "environment"
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.crossplane.io/aggregate-to-environment-edit: "true"
+rules: [] # Rules are automatically filled in by the controller manager.
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane:stack-manager:env:default:edit
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+    rbac.crossplane.io/aggregate-to-environment-edit: "true"
+rules:
+- apiGroups:
+  - cache.crossplane.io
+  - compute.crossplane.io
+  - database.crossplane.io
+  - kubernetes.crossplane.io
+  - core.crossplane.io
+  - storage.crossplane.io
+  - workload.crossplane.io
+  resources:
+  - "*"
+  verbs:
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane-env-view
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+    rbac.crossplane.io/aggregate-to-environment-edit: "true"
+    crossplane.io/scope: "environment"
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.crossplane.io/aggregate-to-environment-view: "true"
+rules: [] # Rules are automatically filled in by the controller manager.
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane:stack-manager:env:default:view
+  labels:
+    app: crossplane
+    app.kubernetes.io/component: crossplane
+    app.kubernetes.io/instance: crossplane
+    app.kubernetes.io/name: crossplane
+    app.kubernetes.io/version: v0.9.0
+    rbac.crossplane.io/aggregate-to-environment-view: "true"
+rules:
+- apiGroups:
+  - cache.crossplane.io
+  - compute.crossplane.io
+  - database.crossplane.io
+  - kubernetes.crossplane.io
+  - core.crossplane.io
+  - stacks.crossplane.io
+  - storage.crossplane.io
+  - workload.crossplane.io
+  resources:
+  - "*"
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - stacks.crossplane.io
+  resources:
+  - clusterstackinstall
+  - stack
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
