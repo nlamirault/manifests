@@ -30,7 +30,7 @@ spec:
       containers:
       - image: crossplane/crossplane:v0.9.0
         args:
-        - '--debug'
+        - --debug
         imagePullPolicy: Always
         name: crossplane
         resources:
@@ -53,8 +53,8 @@ spec:
       automountServiceAccountToken: false
       serviceAccount: ""
       serviceAccountName: ""
-      volumes:
-        - name: sa-token
-          secret:
-            defaultMode: 420
-            secretName: {{ .Values.hostedConfig.crossplaneSATokenSecret | quote }}
+      # volumes:
+      #   - name: sa-token
+      #     secret:
+      #       defaultMode: 420
+      #       secretName: {{ .Values.hostedConfig.crossplaneSATokenSecret | quote }}
