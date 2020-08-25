@@ -1,0 +1,10 @@
+site_name: Kubernetes Manifests documentation
+site_description: 'documentation for Kubernetes manifests'
+site_author: 'Nicolas Lamirault'
+docs_dir: docs/
+repo_name: 'nlamirault/manifests'
+repo_url: 'https://github.com/nlamirault/manifests'
+nav:
+    - Home: index.md
+theme:
+  name: 'material'
