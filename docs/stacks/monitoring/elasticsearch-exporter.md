@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/elasticsearch-exporter/README.md}}

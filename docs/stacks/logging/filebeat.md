@@ -1,0 +1,1 @@
+{{#include ../../../../resources/logging/filebeat/README.md}}

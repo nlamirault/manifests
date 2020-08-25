@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/monitoring-mysql/README.md}}

@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/thanos/README.md}}

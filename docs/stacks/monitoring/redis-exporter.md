@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/redis-exporter/README.md}}

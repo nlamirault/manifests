@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/node-exporter/README.md}}

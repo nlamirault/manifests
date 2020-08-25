@@ -1,0 +1,1 @@
+{{#include ../../../../resources/customer/minotor-landing/README.md}}

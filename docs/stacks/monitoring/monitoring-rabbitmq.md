@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/monitoring-rabbitmq/README.md}}

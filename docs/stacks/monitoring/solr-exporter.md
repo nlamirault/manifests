@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/solr-exporter/README.md}}

@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/postgres-exporter/README.md}}

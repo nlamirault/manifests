@@ -1,0 +1,1 @@
+{{#include ../../../../resources/logging/promtail/README.md}}

@@ -1,16 +1,74 @@
-# Kubernetes manifests
+# Summary
 
-This repo is a [bespoke configuration](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#bespoke-configuration)
-of `kustomize` targets.
+[Introduction](./introduction.md)
 
-## Best practices
 
-See [BestPractices](BestPractices.md)
+- [User](./user/index.md)
+  - [Quick Start](./user/quick-start.md)
+  - [Alerting](./user/alerting.md)
 
-## Tools
+- [Stacks](./stacks/index.md)
+  - [Cert-Manager](./stacks/cert-manager/index.md)
+    - [Cert Manager](./stacks/cert-manager/cert-manager.md)
+    - [Cert Manager CRDs](./stacks/cert-manager/cert-manager-crds.md)
+  - [Customer](./stacks/customer/index.md)
+    - [Minotor Landing](./stacks/customer/minotor-landing.md)
+    - [Minotor Letsencrypt](./stacks/customer/minotor-letsencrypt.md)
+  - [DNS](./stacks/dns/index.md)
+  - [Identity](./stacks/identity/index.md)
+  - [Ingress Controllers](./stacks/ingress-controllers/index.md)
+    - [Default Backend](./stacks/ingress-controllers/default-backend.md)
+    - [Nginx Ingress Controllers](./stacks/ingress-controllers/ingress-nginx.md)
+  - [Logging](./stacks/logging/index.md)
+    - [Elastic Operator](./stacks/logging/elastic-operator.md)
+    - [Elastic Operator CRDs](./stacks/logging/elastic-operator-crds.md)
+    - [Elasticsearch](./stacks/logging/elasticsearch.md)
+    - [Filebeat](./stacks/logging/filebeat.md)
+    - [Kibana](./stacks/logging/kibana.md)
+    - [Loki](./stacks/logging/loki.md)
+    - [Promtail](./stacks/logging/promtail.md)
+  - [Monitoring](./stacks/monitoring/index.md)
+    - [Alertmanager](./stacks/monitoring/alertmanager.md)
+    - [Blackbox Exporter](./stacks/monitoring/blackbox-exporter.md)
+    - [Elasticsearch Exporter](./stacks/monitoring/elasticsearch-exporter.md)
+    - [Grafana](./stacks/monitoring/grafana.md)
+    - [Kube Monitors AKS](./stacks/monitoring/kube-monitors-aks.md)
+    - [Kube Monitors EKS](./stacks/monitoring/kube-monitors-eks.md)
+    - [Kube Monitors GKE](./stacks/monitoring/kube-monitors-gke.md)
+    - [Kube Monitors K3S](./stacks/monitoring/kube-monitors-k3s.md)
+    - [Kube State Metrics](./stacks/monitoring/kube-state-metrics.md)
+    - [Memcached Exporter](./stacks/monitoring/memcached-exporter.md)
+    - [Monitoring Elasticsearch](./stacks/monitoring/monitoring-elasticsearch.md)
+    - [Monitoring Memcached](./stacks/monitoring/monitoring-memcached.md)
+    - [Monitoring MySQL](./stacks/monitoring/monitoring-mysql.md)
+    - [Monitoring RabbitMQ](./stacks/monitoring/monitoring-rabbitmq.md)
+    - [Monitoring Redis](./stacks/monitoring/monitoring-redis.md)
+    - [Monitoring Solr](./stacks/monitoring/monitoring-solr.md)
+    - [Monitoring Varnish](./stacks/monitoring/monitoring-varnish.md)
+    - [MySQL Exporter](./stacks/monitoring/mysql-exporter.md)
+    - [Node Exporter](./stacks/monitoring/node-exporter.md)
+    - [PGBouncer Exporter](./stacks/monitoring/pgbouncer-exporter.md)
+    - [Postgres Exporter](./stacks/monitoring/postgres-exporter.md)
+    - [Prometheus](./stacks/monitoring/prometheus.md)
+    - [Prometheus Operator](./stacks/monitoring/prometheus-operator.md)
+    - [Prometheus Operator CRDs](./stacks/monitoring/prometheus-operator-crds.md)
+    - [Prometheus Thanos](./stacks/monitoring/prometheus-thanos.md)
+    - [Pushgateway](./stacks/monitoring/pushgateway.md)
+    - [Redis Exporter](./stacks/monitoring/redis-exporter.md)
+    - [Solr Exporter](./stacks/monitoring/solr-exporter.md)
+    - [Thanos](./stacks/monitoring/thanos.md)
+  - [Operations](./stacks/operations/index.md)
+  - [Reporting](./stacks/reporting/index.md)
+    - [Kube Resource Report](./stacks/reporting/kube-resource-report.md)
+    - [Polaris](./stacks/reporting/polaris.md)
+  - [Security](./stacks/security/index.md)
+    - [OpenPolicyAgent](./stacks/security/open-policy-agent.md)
 
-| Name               | Releases           | Tags             |
-| -----------------  |:------------------:| ----------------:|
-| Kustomize          | `v3.1.0`           | `v0.2.0`         |
-| Kubeval            | `v0.13.0`          | `v0.2.0`         |
-| Conftest           | `v0.11.0`          | `v0.2.0`         |
+- [Developer Guide](./developer/guide.md)
+  - [Best Practices](./developer/best-practices.md)
+
+- [Troubleshooting](./user/troubleshooting.md)
+- [Reference](./reference/reference.md)
+  - [Glossary](./reference/glossary.md)
+  - [Contributing](./CONTRIBUTING.md)
+  - [Roadmap](./roadmap.md)

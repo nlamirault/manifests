@@ -1,0 +1,1 @@
+{{#include ../../../../resources/reporting/kube-resource-report/README.md}}

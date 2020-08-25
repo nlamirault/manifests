@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/monitoring-varnish/README.md}}

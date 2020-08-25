@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/kube-state-metrics/README.md}}

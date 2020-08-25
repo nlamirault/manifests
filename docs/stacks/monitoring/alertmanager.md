@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/alertmanager/README.md}}

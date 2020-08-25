@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/pgbouncer-exporter/README.md}}

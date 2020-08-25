@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/mysql-exporter/README.md}}

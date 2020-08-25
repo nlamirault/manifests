@@ -1,0 +1,1 @@
+{{#include ../../../../resources/logging/elastic-operator-crds/README.md}}

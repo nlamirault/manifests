@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/blackbox-exporter/README.md}}

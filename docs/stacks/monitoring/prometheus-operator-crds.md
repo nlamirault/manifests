@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/prometheus-operator-crds/README.md}}

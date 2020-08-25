@@ -1,0 +1,1 @@
+{{#include ../../../../resources/cert-manager/cert-manager-crds/README.md}}

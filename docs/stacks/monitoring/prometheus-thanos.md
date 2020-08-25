@@ -1,0 +1,1 @@
+{{#include ../../../../resources/monitoring/prometheus-thanos/README.md}}

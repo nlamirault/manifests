@@ -1,0 +1,1 @@
+{{#include ../../../../resources/kube-system/kube-monitors/README.md}}
