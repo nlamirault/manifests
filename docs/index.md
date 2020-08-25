@@ -3,12 +3,6 @@
 This repo is a [bespoke configuration](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#bespoke-configuration)
 of `kustomize` targets.
 
-## Organization
-
-Each directory corresponds to a namespace. Except admin and namespaces.
-
-In the directories of namespaces, we find the different services to deploy.
-
 ## Best practices
 
 See [BestPractices](BestPractices.md)
