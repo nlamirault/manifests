@@ -1,40 +1,22 @@
-## Sample
+# Kubernetes manifests
 
-One more, finally. Or not? :)
+This repo is a [bespoke configuration](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#bespoke-configuration)
+of `kustomize` targets.
 
-Now:
+## Organization
 
-```
-$ some
-```
+Each directory corresponds to a namespace. Except admin and namespaces.
 
-Look what she said:
+In the directories of namespaces, we find the different services to deploy.
 
-> This is it!
+## Best practices
 
-### Subtitle
+See [BestPractices](BestPractices.md)
 
-And now this:
+## Tools
 
-- One
-- Two
-- Three
-
-
-#### As well
-
-#### As this
-
-### Another
-
-[a link](https://aws.com)
-
-More?
-
-
-Can we now have `the build`?
-
-NOW!
-
-
-Not gonna work, is it?
+| Name               | Releases           | Tags             |
+| -----------------  |:------------------:| ----------------:|
+| Kustomize          | `v3.1.0`           | `v0.2.0`         |
+| Kubeval            | `v0.13.0`          | `v0.2.0`         |
+| Conftest           | `v0.11.0`          | `v0.2.0`         |
