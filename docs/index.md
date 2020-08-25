@@ -9,11 +9,7 @@ components deployed on Skale-5 projects.
 
 {{#include ../../README.md:Tools}}
 
-<aside class="note warning">
-
-<h1>Note</h1>
-
+!!! hint "Kustomize versions"
 Be careful with Kustomize versions.
 Do not use Kustomize < 2.1.x.
 
-</aside>

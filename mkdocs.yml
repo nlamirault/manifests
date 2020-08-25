@@ -1,10 +1,112 @@
-site_name: Kubernetes Manifests documentation
-site_description: 'documentation for Kubernetes manifests'
-site_author: 'Nicolas Lamirault'
-docs_dir: docs/
-repo_name: 'nlamirault/manifests'
-repo_url: 'https://github.com/nlamirault/manifests'
-nav:
-    - Home: index.md
+site_name: Kubernetes Manifests
+site_description: Manifests for Kubernetes
+site_author: Nicolas Lamirault
+site_url: https://nlamirault.github.io/manifests/
+
+repo_name: nlamirault/manifests
+repo_url: https://github.com/nlamirault/manifests
+edit_uri: ""
+
 theme:
-  name: 'material'
+  name: material
+  logo: _files/flux-icon@2x.png
+  language: en
+  palette:
+    primary: blue
+    accent: indigo
+  custom_dir: mkdocs/
+
+docs_dir: docs
+
+extra_css:
+  - _static/custom.css
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - meta
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      highlight_code: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
+  - pymdownx.progressbar
+  - pymdownx.tasklist
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+nav:
+  - Introduction: index.md
+  - User:
+      - Quick Start: user/quick-start.md
+      - Alerting: user/alerting.md
+  - Stacks:
+      - Certificates: stacks/cert-manager/index.md
+      - Cert Manager CRDs: stacks/cert-manager/cert-manager-crds.md
+      - Cert Manager: stacks/cert-manager/cert-manager.md
+      - Customer: stacks/customer/index.md
+        - Minotor Landing: stacks/customer/minotor-landing.md
+        - Minotor Letsencrypt: stacks/customer/minotor-letsencrypt.md
+      - DNS: stacks/dns/index.md
+      - Identity: stacks/identity/index.md
+      - Ingress Controllers: stacks/ingress-controllers/index.md
+        - Default Backend: stacks/ingress-controllers/default-backend.md
+        - Nginx Ingress Controllers: stacks/ingress-controllers/ingress-nginx.md
+      - Logging: stacks/logging/index.md
+        - Elastic Operator: stacks/logging/elastic-operator.md
+        - Elastic Operator CRDs: stacks/logging/elastic-operator-crds.md
+        - Elasticsearch: stacks/logging/elasticsearch.md
+        - Filebeat: stacks/logging/filebeat.md
+        - Kibana: stacks/logging/kibana.md
+        - Loki: stacks/logging/loki.md
+        - Promtail: stacks/logging/promtail.md
+      - Monitoring: stacks/monitoring/index.md
+        - Alertmanager: stacks/monitoring/alertmanager.md
+        - Blackbox Exporter: stacks/monitoring/blackbox-exporter.md
+        - Elasticsearch Exporter: stacks/monitoring/elasticsearch-exporter.md
+        - Grafana: stacks/monitoring/grafana.md
+        - Kube Monitors AKS: stacks/monitoring/kube-monitors-aks.md
+        - Kube Monitors EKS: stacks/monitoring/kube-monitors-eks.md
+        - Kube Monitors GKE: stacks/monitoring/kube-monitors-gke.md
+        - Kube Monitors K3S: stacks/monitoring/kube-monitors-k3s.md
+        - Kube State Metrics: stacks/monitoring/kube-state-metrics.md
+        - Memcached Exporter: stacks/monitoring/memcached-exporter.md
+        - Monitoring Elasticsearch: stacks/monitoring/monitoring-elasticsearch.md
+        - Monitoring Memcached: stacks/monitoring/monitoring-memcached.md
+        - Monitoring MySQL: stacks/monitoring/monitoring-mysql.md
+        - Monitoring RabbitMQ: stacks/monitoring/monitoring-rabbitmq.md
+        - Monitoring Redis: stacks/monitoring/monitoring-redis.md
+        - Monitoring Solr: stacks/monitoring/monitoring-solr.md
+        - Monitoring Varnish: stacks/monitoring/monitoring-varnish.md
+        - MySQL Exporter: stacks/monitoring/mysql-exporter.md
+        - Node Exporter: stacks/monitoring/node-exporter.md
+        - PGBouncer Exporter: stacks/monitoring/pgbouncer-exporter.md
+        - Postgres Exporter: stacks/monitoring/postgres-exporter.md
+        - Prometheus: stacks/monitoring/prometheus.md
+        - Prometheus Operator: stacks/monitoring/prometheus-operator.md
+        - Prometheus Operator CRDs: stacks/monitoring/prometheus-operator-crds.md
+        - Prometheus Thanos: stacks/monitoring/prometheus-thanos.md
+        - Pushgateway: stacks/monitoring/pushgateway.md
+        - Redis Exporter: stacks/monitoring/redis-exporter.md
+        - Solr Exporter: stacks/monitoring/solr-exporter.md
+        - Thanos: stacks/monitoring/thanos.md
+      - Operations: stacks/operations/index.md
+      - Reporting: stacks/reporting/index.md
+        - Kube Resource Report: stacks/reporting/kube-resource-report.md
+        - Polaris: stacks/reporting/polaris.md
+      - Security: stacks/security/index.md
+        - OpenPolicyAgent: stacks/security/open-policy-agent.md
+  - Guides:
+    - Developer: developer/guide.md
+    - Best Practices: developer/best-practices.md
+  - Troubleshooting: user/troubleshooting.md
+  - Roadmap: roadmap.md
+  - Reference: reference/reference.md
+  - Glossary: reference/glossary.md
+  - Contributing: CONTRIBUTING.md
