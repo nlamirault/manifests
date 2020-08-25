@@ -47,18 +47,22 @@ nav:
       - Quick Start: user/quick-start.md
       - Alerting: user/alerting.md
   - Stacks:
-      - Certificates: stacks/cert-manager/index.md
-      - Cert Manager CRDs: stacks/cert-manager/cert-manager-crds.md
-      - Cert Manager: stacks/cert-manager/cert-manager.md
-      - Customer: stacks/customer/index.md
+      - Certificates:
+        - Description: stacks/cert-manager/index.md
+        - Cert Manager CRDs: stacks/cert-manager/cert-manager-crds.md
+        - Cert Manager: stacks/cert-manager/cert-manager.md
+      - Customer:
+        - Description: stacks/customer/index.md
         - Minotor Landing: stacks/customer/minotor-landing.md
         - Minotor Letsencrypt: stacks/customer/minotor-letsencrypt.md
       - DNS: stacks/dns/index.md
       - Identity: stacks/identity/index.md
-      - Ingress Controllers: stacks/ingress-controllers/index.md
+      - Ingress Controllers:
+        - Description: stacks/ingress-controllers/index.md
         - Default Backend: stacks/ingress-controllers/default-backend.md
         - Nginx Ingress Controllers: stacks/ingress-controllers/ingress-nginx.md
-      - Logging: stacks/logging/index.md
+      - Logging:
+        - Description: stacks/logging/index.md
         - Elastic Operator: stacks/logging/elastic-operator.md
         - Elastic Operator CRDs: stacks/logging/elastic-operator-crds.md
         - Elasticsearch: stacks/logging/elasticsearch.md
@@ -66,7 +70,8 @@ nav:
         - Kibana: stacks/logging/kibana.md
         - Loki: stacks/logging/loki.md
         - Promtail: stacks/logging/promtail.md
-      - Monitoring: stacks/monitoring/index.md
+      - Monitoring:
+        - Description: stacks/monitoring/index.md
         - Alertmanager: stacks/monitoring/alertmanager.md
         - Blackbox Exporter: stacks/monitoring/blackbox-exporter.md
         - Elasticsearch Exporter: stacks/monitoring/elasticsearch-exporter.md
@@ -97,10 +102,12 @@ nav:
         - Solr Exporter: stacks/monitoring/solr-exporter.md
         - Thanos: stacks/monitoring/thanos.md
       - Operations: stacks/operations/index.md
-      - Reporting: stacks/reporting/index.md
+      - Reporting:
+        - Description: stacks/reporting/index.md
         - Kube Resource Report: stacks/reporting/kube-resource-report.md
         - Polaris: stacks/reporting/polaris.md
-      - Security: stacks/security/index.md
+      - Security:
+        - Description: stacks/security/index.md
         - OpenPolicyAgent: stacks/security/open-policy-agent.md
   - Guides:
     - Developer: developer/guide.md
